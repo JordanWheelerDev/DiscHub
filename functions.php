@@ -3,6 +3,17 @@ include 'config/db.php';
 
 define("BASE_URL", "/discord-servers");
 
+$stmt = $conn->prepare("SELECT * FROM settings");
+$stmt->execute();
+$result = $stmt->get_result();
+$settings = $result->fetch_assoc();
+
+$base_url = $settings['base_url'];
+$discord_bot_uri = $settings['discord_bot_uri'];
+$discord_login_uri = $settings['discord_login_uri'];
+
+$stmt->close();
+
 date_default_timezone_set('UTC');
 
 session_start();
@@ -11,20 +22,6 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 
-function getCategories()
-{
-    global $conn;
-    $stmt = "SELECT * FROM categories ORDER BY category ASC";
-    $stmt = $conn->prepare($stmt);
-    $stmt->execute();
-    // Loop through the results
-    $stmt->bind_result($id, $category);
-    while ($stmt->fetch()) {
-        echo "<li class='nav-item'><a class='nav-link' href='#'>$category</a></li>";
-    }
-    $stmt->close();
-
-}
 function getMostUsedTags()
 {
     global $conn;

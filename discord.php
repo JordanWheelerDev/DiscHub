@@ -12,11 +12,10 @@ if (isset($_SESSION['user'])) {
 $client_id = "1258119042401701928";
 $client_secret = "s8ps-iplp2zcjV7yh_6B3maZYYDTYoZj";
 $scopes = "identify+email+guilds+connections";
-$redirect_url = "http://localhost/discord-servers/discord";
 
 if (!isset($_GET['code'])) {
     // Redirect to Discord's authorization endpoint
-    $authorize_url = "https://discord.com/api/oauth2/authorize?client_id={$client_id}&redirect_uri={$redirect_url}&response_type=code&scope={$scopes}";
+    $authorize_url = "https://discord.com/api/oauth2/authorize?client_id={$client_id}&redirect_uri={$discord_login_uri}&response_type=code&scope={$scopes}";
     header("Location: {$authorize_url}");
     exit;
 }
@@ -31,7 +30,7 @@ if (isset($_GET['code'])) {
         'grant_type' => 'authorization_code',
         'client_id' => $client_id,
         'client_secret' => $client_secret,
-        'redirect_uri' => $redirect_url,
+        'redirect_uri' => $discord_login_uri,
         'code' => $code
     );
 

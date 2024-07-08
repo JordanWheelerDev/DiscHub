@@ -32,7 +32,7 @@ $server_id = $_GET['server_id'];
     <script>
         // Construct the bot invitation URL
         const clientId = '1258119042401701928'; // Replace with your bot's client ID
-        const redirectUri = encodeURIComponent('http://localhost/discord-servers/my-servers');
+        const redirectUri = encodeURIComponent('<?php echo $discord_bot_uri; ?>');
         const inviteUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&scope=bot&permissions=19473&disable_guild_select=true&guild_id=<?php echo urlencode($server_id); ?>&redirect_uri=${redirectUri}&response_type=code`;
 
         // Redirect the user to the bot invitation URL
