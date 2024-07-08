@@ -11,3 +11,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^server/([^/]+)/?$ server.php?sid=$1 [L,QSA]
 RewriteRule ^search/([^/]+)/?$ search.php?query=$1 [L,QSA]
 RewriteRule ^category/([^/]+)/?$ category.php?category=$1 [L,QSA]
+RewriteRule ^edit/([^/]+)/?$ edit.php?sid=$1 [L,QSA]

@@ -12,6 +12,13 @@ if (isset($_GET['sid'])) {
     $guild = $result->fetch_assoc();
 }
 
+// Update view count
+$stmt = $conn->prepare("UPDATE servers SET views = views + 1 WHERE server_id =?");
+$stmt->bind_param('s', $sid);
+$stmt->execute();
+$stmt->close();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

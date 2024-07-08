@@ -5,7 +5,7 @@ $pagename = "add server";
 
 // Ensure user is logged in
 if (!isset($_SESSION['user'])) {
-    header('Location: login.php'); // Redirect to login if not logged in
+    header('Location: ' . $base_url . '/login'); // Redirect to login if not logged in
     exit;
 }
 
@@ -80,10 +80,11 @@ if (isset($_POST['addServerBtn'])) {
     $last_bump = date('Y-m-d H:i:s');
     $user_count = ""; // get the user count for the server;
     $is_nsfw = 0; // set it to 0 by default;
+    $views = 0; // set it to 0 by default;
 
     // Add server to the database
-    $stmt = $conn->prepare("INSERT INTO servers (server_id, name, description, invite_link, category, category_slug, tags, server_image, owner_id, last_bump, user_count, is_nsfw) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssssssii', $server_id, $name, $description, $invite_link, $category, $category_slug, $tags, $server_image, $owner_id, $last_bump, $user_count, $is_nsfw);
+    $stmt = $conn->prepare("INSERT INTO servers (server_id, name, description, invite_link, category, category_slug, tags, server_image, owner_id, last_bump, user_count, is_nsfw, views) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param('ssssssssssiis', $server_id, $name, $description, $invite_link, $category, $category_slug, $tags, $server_image, $owner_id, $last_bump, $user_count, $is_nsfw, $views);
     $stmt->execute();
 
     // Redirect to the servers page

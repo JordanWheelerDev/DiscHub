@@ -3,7 +3,7 @@ include 'functions.php'; // Include your database connection and other functions
 
 // Ensure user is logged in
 if (!isset($_SESSION['user'])) {
-    header('Location: login.php'); // Redirect to login if not logged in
+    header('Location: ' . $base_url . '/index');
     exit;
 }
 
@@ -27,7 +27,7 @@ $server_id = $_GET['server_id'];
 </head>
 
 <body>
-    <h2>Adding Bot to Server ID <?php echo htmlspecialchars($server_id); ?></h2>
+    <h2 style="text-align: center;">Adding Bot to Server ID <?php echo htmlspecialchars($server_id); ?></h2>
 
     <script>
         // Construct the bot invitation URL

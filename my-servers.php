@@ -4,7 +4,7 @@ include 'functions.php';
 $pagename = "my servers";
 
 if (!isset($_SESSION['user'])) {
-    header('Location: login.php');
+    header('Location: ' . $base_url . '/index');
     exit;
 }
 
@@ -46,36 +46,39 @@ $user = $_SESSION['user'];
                         <div>
                             <img src="<?php echo $row['server_image']; ?>" class="server-img" alt="">
                         </div>
-                        <div class="ds-server">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div class="ms-title-area"><?php echo $row['name']; ?> | <span
-                                        class="category"><?php echo $row['category']; ?></span>
-                                    <?php if ($row['is_nsfw'] == 1) {
-                                        echo '<span class="is_nsfw">NSFW</span>';
-                                    } ?>
+                        <a href="edit/<?php echo $row['server_id']; ?>" class="ds-server-link">
+                            <div class="ds-server">
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div class="ms-title-area"><?php echo $row['name']; ?> | <span
+                                            class="category"><?php echo $row['category']; ?></span>
+                                        <?php if ($row['is_nsfw'] == 1) {
+                                            echo '<span class="is_nsfw">NSFW</span>';
+                                        } ?>
+                                    </div>
+                                    <div><span class="server-info"><i class="fa-light fa-user"
+                                                style="margin-right: 5px;"></i>
+                                            <?php echo number_format($row['user_count']); ?></span></div>
                                 </div>
-                                <div><span class="server-info"><i class="fa-light fa-user" style="margin-right: 5px;"></i>
-                                        <?php echo number_format($row['user_count']); ?></span></div>
-                            </div>
-                            <div class="ms-description mb-3">
-                                <?php echo $row['description']; ?>
-                            </div>
-                            <?php
-                            $lastbump = new DateTime($row['last_bump']);
-                            $nextbump = new DateTime($row['last_bump']);
-                            $nextbump->add(new DateInterval('PT2H'));
+                                <div class="ms-description mb-3">
+                                    <?php echo $row['description']; ?>
+                                </div>
+                                <?php
+                                $lastbump = new DateTime($row['last_bump']);
+                                $nextbump = new DateTime($row['last_bump']);
+                                $nextbump->add(new DateInterval('PT2H'));
 
-                            $currenttime = new DateTime();
+                                $currenttime = new DateTime();
 
-                            if ($currenttime >= $nextbump) {
-                                echo '<a href="#" class="btn btn-primary-sm" data-server-id="' . $row['id'] . '">Bump Server</a>';
-                            } else {
-                                // Calculate time difference in seconds
-                                $timeDiff = $nextbump->getTimestamp() - $currenttime->getTimestamp();
-                                echo '<div class="countdown text-center" data-time="' . $timeDiff . '"></div>';
-                            }
-                            ?>
-                        </div>
+                                if ($currenttime >= $nextbump) {
+                                    echo '<a href="#" class="btn btn-primary-sm" data-server-id="' . $row['id'] . '">Bump Server</a>';
+                                } else {
+                                    // Calculate time difference in seconds
+                                    $timeDiff = $nextbump->getTimestamp() - $currenttime->getTimestamp();
+                                    echo '<div class="countdown text-center" data-time="' . $timeDiff . '"></div>';
+                                }
+                                ?>
+                            </div>
+                        </a>
                     </div>
                 </div>
             <?php }
