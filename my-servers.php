@@ -42,7 +42,7 @@ $user = $_SESSION['user'];
             while ($row = $result->fetch_assoc()) {
                 ?>
                 <div class="col-lg-4">
-                    <div class="ds-servers">
+                    <div class="ds-servers mb-3">
                         <div>
                             <img src="<?php echo $row['server_image']; ?>" class="server-img" alt="">
                         </div>
