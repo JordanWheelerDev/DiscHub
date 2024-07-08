@@ -1,0 +1,173 @@
+<?php
+
+include 'functions.php';
+
+$pagename = "index";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiscHub | Discord Server Listings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/all.min.css">
+    <script>
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = document.querySelector('input[name="query"]').value.trim();
+            if (query) {
+                window.location.href = `search/${encodeURIComponent(query)}`;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <?php include "parts/navbar.php"; ?>
+    <div class="ds-home-header">
+        <div class="mb-3">
+            <h1>Discover <span id="discordServerTypes"></span></h1>
+        </div>
+        <div class="search-field-home">
+            <form onsubmit="handleSearch(event)" class="mb-3 d-flex align-items-center">
+                <input type="text" name="query" class="form-control me-2" placeholder="Search servers">
+                <button class="btn btn-primary" type="submit"><i class="fa-light fa-magnifying-glass"></i></button>
+            </form>
+            <div class="mb-3 text-center">
+                <?php getMostUsedTags(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5 mb-5">
+        <div class="row mb-4">
+            <div class="ds-header-m mb-4">Featured Servers</div>
+            <?php
+            $is_featured = 1;
+            $stmt = $conn->prepare("SELECT * FROM servers WHERE is_featured = ? ORDER BY RAND() LIMIT 3");
+            $stmt->bind_param('i', $is_featured);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+
+            // check if any rows were returned
+            if ($result->num_rows == 0) {
+                echo '<div class="col-12 text-center">No featured servers found.</div>';
+            } else {
+                while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <div class="col-lg-4">
+                        <a href="server/<?php echo $row['server_id']; ?>" class="ds-server-link">
+                            <div class="ds-servers-featured">
+                                <div class="ds-server-featured">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <div class="title-area"><?php echo $row['name']; ?> | <span
+                                                class="category"><?php echo $row['category']; ?></span>
+                                            <?php if ($row['is_nsfw'] == 1) {
+                                                echo '<span class="is_nsfw">NSFW</span>';
+                                            } ?>
+                                        </div>
+                                        <div><span class="server-info"><i class="fa-light fa-user"
+                                                    style="margin-right: 5px;"></i>
+                                                <?php echo number_format($row['user_count']); ?></span></div>
+                                    </div>
+                                    <div class="description">
+                                        <?php echo $row['description']; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                <?php }
+            }
+            $stmt->close(); ?>
+        </div>
+        <div class="row">
+            <div class="ds-header-m mb-3">Recently Bumped Servers</div>
+            <div class="col-md-8">
+                <?php getRecentlyBumpedServers(); ?>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">ads</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/script.js"></script>
+    <script>
+        const discoverTexts = [];
+
+        async function fetchCategories() {
+            try {
+                const response = await fetch('api/get-categories.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const categories = await response.json();
+                return categories;
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+                return [];
+            }
+        }
+
+        async function populateDiscoverTexts() {
+            const categories = await fetchCategories();
+            categories.forEach(category => {
+                discoverTexts.push(category.category + " Servers");
+            });
+
+            // Start typing animation or any other function that uses discoverTexts
+            type();
+        }
+
+        // Typing animation logic
+        let index = 0;
+        let currentText = "";
+        let isDeleting = false;
+
+        function type() {
+            const fullText = discoverTexts[index];
+            if (isDeleting) {
+                currentText = fullText.substring(0, currentText.length - 1);
+            } else {
+                currentText = fullText.substring(0, currentText.length + 1);
+            }
+            document.getElementById("discordServerTypes").innerHTML = currentText;
+
+            let speed = 200; // Adjust typing speed here
+
+            if (isDeleting) {
+                speed /= 2; // Adjust deleting speed here
+            }
+
+            if (!isDeleting && currentText === fullText) {
+                isDeleting = true;
+                speed = 500; // Time to wait before starting to delete
+            } else if (isDeleting && currentText === "") {
+                isDeleting = false;
+                index = (index + 1) % discoverTexts.length;
+                speed = 200; // Time to wait before starting to type the next text
+            }
+
+            setTimeout(type, speed);
+        }
+
+        // Start the process
+        populateDiscoverTexts();
+    </script>
+</body>
+
+</html>

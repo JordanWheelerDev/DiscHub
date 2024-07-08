@@ -1,0 +1,607 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&display=swap");
+
+body {
+  background-color: #222831;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  /* disable horizontal scroll */
+  overflow-x: hidden;
+}
+
+.ds-navbar {
+  background-color: #31363f;
+  min-height: 65px;
+}
+
+.ds-navbar .nav-link {
+  color: white;
+  /* text-shadow: 0px 0px 3px #ffffff; */
+}
+
+.ds-navbar .nav-link:hover {
+  color: #743ad5;
+  /* text-shadow: 0px 0px 5px #743ad5; */
+}
+
+.ds-navbar .navbar-brand {
+  color: white;
+  font-weight: bold;
+}
+
+.ds-profile-nav {
+  width: 40px;
+  height: 40px;
+}
+
+.ds-home-header {
+  background: url("../images/site/backgrounds/v1.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 60vh;
+  width: 100%;
+}
+
+.ds-home-header .input-group {
+  max-width: 700px;
+  padding: 20px;
+}
+
+.ds-home-header input[type="text"] {
+  padding: 12px;
+  background-color: #222831;
+  width: 100%;
+  border: 1px solid #222831;
+  color: white;
+}
+
+.ds-home-header input[type="text"]:focus {
+  outline: 0;
+  border: 2px solid transparent;
+  border-image: linear-gradient(to left, #743ad5, #d53a9d) 1;
+  border-image-slice: 1;
+  box-shadow: none;
+}
+
+.ds-home-header h1 {
+  font-size: 40px;
+  font-weight: 300;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #8928ea;
+  border: none;
+  padding: 12px;
+  transition: all 0.5s ease;
+}
+
+.btn-primary:hover {
+  background-color: #7923cf;
+}
+
+.btn-primary:focus {
+  outline: 0;
+}
+
+.btn-primary:disabled {
+  background-color: #8928ea;
+}
+
+.btn-primary:active {
+  background-color: #7923cf !important;
+}
+
+.btn-primary:focus-visible {
+  outline: 0;
+}
+
+.btn-primary-sm {
+  background-color: #8928ea;
+  border: none;
+  padding: 5px 10px;
+  transition: all 0.5s ease;
+  color: white;
+  font-size: 14px;
+  width: 100%;
+}
+
+.btn-primary-sm:hover {
+  background-color: #7923cf;
+}
+
+.btn-primary-sm:focus {
+  outline: 0;
+}
+
+.btn-primary-sm:disabled {
+  background-color: #8928ea;
+}
+
+.btn-primary-sm:active {
+  background-color: #7923cf !important;
+}
+
+.btn-primary-sm:focus-visible {
+  outline: 0;
+}
+
+.search-field-home {
+  width: 50vw;
+  padding: 20px;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  .search-field-home {
+    width: 100vw;
+  }
+  .ds-home-header h1 {
+    font-size: 30px;
+    font-weight: 300;
+  }
+}
+
+#discordServerTypes {
+  color: #b8927a;
+  background-image: -webkit-linear-gradient(
+    0deg,
+    #b8927a 0%,
+    #e16acc 33%,
+    #952bfd 67%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  text-fill-color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.headline {
+  font-size: 30px;
+  text-transform: uppercase;
+  font-family: "Anton SC", sans-serif;
+}
+
+.ad-css {
+  border-radius: 10px;
+  box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 1);
+  -webkit-box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 1);
+  -moz-box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 1);
+  width: 100%;
+}
+
+.ad-css:hover {
+  cursor: pointer;
+  box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 0.673);
+  -webkit-box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 1);
+  -moz-box-shadow: 0px 0px 17px 2px rgba(137, 40, 234, 1);
+}
+
+.view-more-btn {
+  font-size: 20px;
+  transition: all 0.5s ease;
+}
+
+.view-more-btn:hover {
+  cursor: pointer;
+  color: #8928ea;
+}
+
+.tag {
+  background-color: #8928ea;
+  color: white;
+  padding: 8px;
+  border-radius: 3px;
+  margin: 3px;
+  display: inline-block;
+  box-shadow: 0px 0px 17px 2px rgba(121, 35, 207, 1);
+  -webkit-box-shadow: 0px 0px 17px 2px rgba(121, 35, 207, 1);
+  -moz-box-shadow: 0px 0px 17px 2px rgba(121, 35, 207, 1);
+  transition: all 0.5s ease;
+}
+
+.tag:hover {
+  background-color: #7923cf;
+  cursor: pointer;
+}
+
+.form-tag {
+  background-color: #8928ea;
+  color: white;
+  padding: 5px;
+  border-radius: 3px;
+  margin: 3px;
+  display: inline-block;
+  transition: all 0.5s ease;
+}
+
+.form-tag:hover {
+  background-color: #7923cf;
+  cursor: pointer;
+}
+
+.ds-header-l {
+  font-size: 40px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.ds-header-m {
+  font-size: 30px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.ds-header-s {
+  font-size: 20px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.servers {
+  width: 100%;
+}
+
+.server {
+  padding: 20px;
+  background-color: #31363f;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #22252b;
+}
+
+.server .title-area {
+  font-size: 20px;
+}
+
+.server .ms-title-area {
+  font-size: 14px;
+}
+
+.server .server-info {
+  display: inline-block;
+  font-size: 14px;
+  background-color: #434242;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.server .server-info i {
+  color: #8844ff;
+}
+
+.server .category {
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.server .is_nsfw {
+  display: inline-block;
+  background-color: #d53a4f;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.server .server-tag {
+  font-size: 14px;
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
+
+.server .description {
+  font-size: 16px;
+}
+
+.ds-servers {
+  width: 100%;
+}
+
+.ds-server {
+  padding: 20px;
+  background-color: #31363f;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #22252b;
+}
+
+.ds-server:hover {
+  cursor: pointer;
+  background-color: #353a44;
+}
+
+.ds-server .title-area {
+  font-size: 18px;
+}
+
+.ds-server .ms-title-area {
+  font-size: 14px;
+}
+
+.ds-server .server-info {
+  display: inline-block;
+  font-size: 14px;
+  background-color: #434242;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.ds-server .server-info i {
+  color: #8844ff;
+}
+
+.ds-server .category {
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.ds-server .is_nsfw {
+  display: inline-block;
+  background-color: #d53a4f;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.ds-server .server-tag {
+  font-size: 14px;
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
+
+.ds-server-link {
+  text-decoration: none !important;
+  color: white;
+}
+
+.ds-servers-featured {
+  width: 100%;
+}
+
+.ds-server-featured {
+  padding: 20px;
+  border-radius: 6px;
+  background-color: #31363f;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #22252b;
+  box-shadow: 0px 0px 5px 2px rgba(121, 35, 207, 1);
+  -webkit-box-shadow: 0px 0px 5px 2px rgba(121, 35, 207, 1);
+  -moz-box-shadow: 0px 0px 5px 2px rgba(121, 35, 207, 1);
+}
+
+.ds-server-featured:hover {
+  cursor: pointer;
+  background-color: #353a44;
+}
+
+.ds-server-featured .title-area {
+  font-size: 16px;
+}
+
+.ds-server-featured .server-info {
+  display: inline-block;
+  font-size: 12px;
+  background-color: #434242;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.ds-server-featured .server-info i {
+  color: #8844ff;
+}
+
+.ds-server-featured .category {
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 1px 4px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.ds-server-featured .is_nsfw {
+  display: inline-block;
+  background-color: #d53a4f;
+  padding: 1px 4px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.ds-server-featured .server-tag {
+  font-size: 14px;
+  display: inline-block;
+  background-color: #8928ea;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 0 2px;
+}
+
+.ds-server-featured-link {
+  text-decoration: none !important;
+  color: white;
+}
+
+.ds-server-featured .description {
+  font-size: 13px;
+}
+
+.ms-description {
+  font-size: 14px;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
+}
+
+.dropdown-menu {
+  background-color: #22252b;
+  border-radius: 0px;
+  width: 200px;
+}
+
+.dropdown-item {
+  color: #fff;
+}
+
+.dropdown-item:hover {
+  background-color: #743ad5;
+  color: white;
+}
+
+.dropdown-item:active {
+  background-color: #8844ff;
+  color: white;
+}
+
+.dropdown-item:focus {
+  background-color: #8844ff;
+  color: white;
+}
+
+.ds-card {
+  background-color: #31363f;
+  color: white;
+}
+
+/* Form Fields */
+.ds-label {
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.ds-select {
+  background-color: #22252b;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #22252b;
+}
+
+.ds-select:focus {
+  border: 1px solid #8844ff;
+}
+
+.ds-select:active {
+  border: 1px solid #8844ff;
+}
+
+.ds-select:focus-visible {
+  border: 1px solid #8844ff;
+}
+
+.ds-input {
+  background-color: #22252b;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #22252b;
+}
+
+.ds-input:focus {
+  border: 1px solid #8844ff;
+}
+
+.ds-input:active {
+  border: 1px solid #8844ff;
+}
+
+.ds-input:focus-visible {
+  border: 1px solid #8844ff;
+}
+
+.ds-textarea {
+  background-color: #22252b;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #22252b;
+}
+
+.ds-textarea:focus {
+  border: 1px solid #8844ff;
+}
+
+.ds-textarea:active {
+  border: 1px solid #8844ff;
+}
+
+.ds-textarea:focus-visible {
+  border: 1px solid #8844ff;
+}
+
+.form-help-text {
+  font-size: 12px;
+}
+
+.server-img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.bump-btn {
+  background-color: #8928ea;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #8928ea;
+}
+
+.bump-btn:hover {
+  background-color: #743ad5;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #743ad5;
+}
+
+.bump-btn:focus {
+  border: 1px solid #8844ff;
+}
+
+.bump-btn:active {
+  border: 1px solid #8844ff;
+}
+
+.bump-btn:disabled {
+  background-color: #641cac;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #641cac;
+}
+
+.discord-join-btn {
+  background-color: #7289da;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #7289da;
+}
+
+.discord-join-btn:hover {
+  background-color: #647fff;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #647fff;
+}
