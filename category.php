@@ -21,8 +21,8 @@ if (!isset($_GET['category'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/style.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/all.min.css">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo $base_url; ?>/css/all.min.css">
 </head>
 
 <body>
@@ -41,7 +41,7 @@ if (!isset($_GET['category'])) {
                     while ($row = $result->fetch_assoc()) {
                         ?>
                         <div class="ds-server">
-                            <a href="<?php echo BASE_URL; ?>/server/<?php echo htmlspecialchars($row['server_id']); ?>"
+                            <a href="<?php echo $base_url; ?>/server/<?php echo htmlspecialchars($row['server_id']); ?>"
                                 class="ds-server-link">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="title-area">
