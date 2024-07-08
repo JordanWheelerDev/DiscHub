@@ -155,6 +155,17 @@ if (isset($_POST['editServerBtn'])) {
                     </div>
                 </div>
             </div>
+            <div class="col-md-4">
+                <div class="card ds-card rounded-0">
+                    <div class="card-body">
+                        <div class="mb-3 ds-header-s">Analytics</div>
+                        <div class="d-flex justify-content-between">
+                            <div>Views</div>
+                            <div><?php echo $guild['views']; ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
