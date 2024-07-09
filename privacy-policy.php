@@ -15,6 +15,8 @@ include 'functions.php';
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo $base_url; ?>/css/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9469778418525272"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
