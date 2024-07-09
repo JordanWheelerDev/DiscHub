@@ -50,6 +50,9 @@ if (isset($_SESSION['user'])) {
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="<?php echo $base_url; ?>/featured">Featured</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -61,9 +64,6 @@ if (isset($_SESSION['user'])) {
                             <li><a class="dropdown-item" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub Discord</b></a>
                             </li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="<?php echo $base_url; ?>/featured">Featured</a>
                     </li>
                 </ul>
 
