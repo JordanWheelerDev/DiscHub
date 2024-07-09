@@ -239,61 +239,59 @@ if (isset($_POST['addServerBtn'])) {
             }
         }
 
-        function addTag(event) {
-            // Check if the comma key was pressed
-            if (event.key === ',') {
-                var tagsInput = document.getElementById('tagsInput');
-                var tagsContainer = document.getElementById('tagsContainer');
-                var tagsHiddenInput = document.getElementById('tags');
-                var tagLimitMsg = document.getElementById('tagLimitMsg');
-                var tagText = tagsInput.value.trim().slice(0, -1); // Remove the comma
+        function handleTagsInput(event) {
+            var tagsInput = document.getElementById('tagsInput');
+            var inputValue = tagsInput.value;
+            var tags = inputValue.split(',');
 
-                // Check if the tag already exists
-                if (tagsArray.includes(tagText)) {
-                    alert('Tag already exists.');
-                    tagsInput.value = '';
-                    return;
+            tags.forEach(function (tagText) {
+                tagText = tagText.trim();
+                if (tagText && !tagsArray.includes(tagText)) {
+                    addTag(tagText);
                 }
+            });
 
-                // Ensure the tags input doesn't exceed 5 tags
-                if (tagsArray.length >= 5) {
-                    tagsInput.disabled = true;
-                    tagLimitMsg.style.display = 'block';
-                    return;
-                }
+            // Clear the input field if there was a comma
+            if (inputValue.includes(',')) {
+                tagsInput.value = '';
+            }
+        }
 
-                if (tagText !== '') {
-                    // Create a new span element for the tag
-                    var tagSpan = document.createElement('span');
-                    tagSpan.className = 'form-tag';
-                    tagSpan.textContent = tagText;
+        function addTag(tagText) {
+            var tagsContainer = document.getElementById('tagsContainer');
+            var tagsHiddenInput = document.getElementById('tags');
+            var tagLimitMsg = document.getElementById('tagLimitMsg');
 
-                    // Add an event listener to remove the tag when clicked
-                    tagSpan.addEventListener('click', function () {
-                        removeTag(tagText, tagSpan);
-                    });
+            // Ensure the tags input doesn't exceed 5 tags
+            if (tagsArray.length >= 5) {
+                document.getElementById('tagsInput').disabled = true;
+                tagLimitMsg.style.display = 'block';
+                return;
+            }
 
-                    // Append the span to the tags container
-                    tagsContainer.appendChild(tagSpan);
+            // Create a new span element for the tag
+            var tagSpan = document.createElement('span');
+            tagSpan.className = 'form-tag';
+            tagSpan.textContent = tagText;
 
-                    // Add tag to the tags array
-                    tagsArray.push(tagText);
+            // Add an event listener to remove the tag when clicked
+            tagSpan.addEventListener('click', function () {
+                removeTag(tagText, tagSpan);
+            });
 
-                    // Update the hidden input with the tags array
-                    tagsHiddenInput.value = tagsArray.join(',');
+            // Append the span to the tags container
+            tagsContainer.appendChild(tagSpan);
 
-                    // Clear the input field
-                    tagsInput.value = '';
+            // Add tag to the tags array
+            tagsArray.push(tagText);
 
-                    // Hide the tag limit message if previously displayed
-                    if (tagsArray.length < 5) {
-                        tagsInput.disabled = false;
-                        tagLimitMsg.style.display = 'none';
-                    }
-                }
+            // Update the hidden input with the tags array
+            tagsHiddenInput.value = tagsArray.join(',');
 
-                // Prevent default behavior (adding a comma)
-                event.preventDefault();
+            // Hide the tag limit message if previously displayed
+            if (tagsArray.length < 5) {
+                document.getElementById('tagsInput').disabled = false;
+                tagLimitMsg.style.display = 'none';
             }
         }
 
