@@ -51,43 +51,61 @@ $pagename = "index";
             <div class="ds-header-m mb-4">Featured Servers</div>
             <?php
             $is_featured = 1;
-            $stmt = $conn->prepare("SELECT * FROM servers WHERE is_featured = ? ORDER BY RAND() LIMIT 3");
-            $stmt->bind_param('i', $is_featured);
+            $stmt = $conn->prepare("SELECT server_id FROM featured_servers WHERE NOW() < featured_until");
             $stmt->execute();
-
             $result = $stmt->get_result();
 
-            // check if any rows were returned
-            if ($result->num_rows == 0) {
-                echo '<div class="col-12 text-center">No featured servers found.</div>';
-            } else {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="col-lg-4">
-                        <a href="server/<?php echo $row['server_id']; ?>" class="ds-server-link">
-                            <div class="ds-servers-featured">
-                                <div class="ds-server-featured">
-                                    <div class="d-flex justify-content-between mb-3">
-                                        <div class="title-area"><?php echo $row['name']; ?> | <span
-                                                class="category"><?php echo $row['category']; ?></span>
-                                            <?php if ($row['is_nsfw'] == 1) {
-                                                echo '<span class="is_nsfw">NSFW</span>';
-                                            } ?>
+            // Array to store server IDs
+            $featuredServerIds = [];
+            while ($row = $result->fetch_assoc()) {
+                $featuredServerIds[] = $row['server_id'];
+            }
+            $stmt->close();
+
+            // Query to fetch details of featured servers from the 'servers' table
+            if (!empty($featuredServerIds)) {
+                $placeholders = implode(',', array_fill(0, count($featuredServerIds), '?'));
+                $query = "SELECT * FROM servers WHERE server_id IN ($placeholders)";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param(str_repeat('i', count($featuredServerIds)), ...$featuredServerIds);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Check if any rows were returned
+                if ($result->num_rows == 0) {
+                    echo '<div class="col-12 text-center">No featured servers found.</div>';
+                } else {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="col-lg-4">
+                            <a href="server/<?php echo $row['server_id']; ?>" class="ds-server-link">
+                                <div class="ds-servers-featured">
+                                    <div class="ds-server-featured">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="title-area"><?php echo htmlspecialchars($row['name']); ?> | <span
+                                                    class="category"><?php echo htmlspecialchars($row['category']); ?></span>
+                                                <?php if ($row['is_nsfw'] == 1) {
+                                                    echo '<span class="is_nsfw">NSFW</span>';
+                                                } ?>
+                                            </div>
+                                            <div><span class="server-info"><i class="fa-light fa-user"
+                                                        style="margin-right: 5px;"></i>
+                                                    <?php echo number_format($row['user_count']); ?></span></div>
                                         </div>
-                                        <div><span class="server-info"><i class="fa-light fa-user"
-                                                    style="margin-right: 5px;"></i>
-                                                <?php echo number_format($row['user_count']); ?></span></div>
-                                    </div>
-                                    <div class="description">
-                                        <?php echo $row['description']; ?>
+                                        <div class="description">
+                                            <?php echo htmlspecialchars($row['description']); ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                <?php }
+                            </a>
+                        </div>
+                    <?php }
+                }
+                $stmt->close();
+            } else {
+                echo '<div class="col-12 text-center">No featured servers found.</div>';
             }
-            $stmt->close(); ?>
+            ?>
         </div>
         <div class="row">
             <div class="ds-header-m mb-3">Recently Bumped Servers</div>
@@ -105,6 +123,12 @@ $pagename = "index";
 
     <script src="js/script.js"></script>
     <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+
         const discoverTexts = [];
 
         async function fetchCategories() {

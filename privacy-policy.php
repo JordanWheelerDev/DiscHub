@@ -130,6 +130,13 @@ include 'functions.php';
             </div>
         </div>
     </div>
+    <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+    </script>
 </body>
 
 </html>

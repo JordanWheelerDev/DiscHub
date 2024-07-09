@@ -51,7 +51,7 @@ if (isset($_SESSION['user'])) {
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" aria-current="page" href="<?php echo $base_url; ?>/featured">Featured</a>
                     </li>
                 </ul>
 

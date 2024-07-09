@@ -29,13 +29,24 @@ include 'functions.php';
                             feature for Discord server owners that make your listing stand out to users across our
                             platform.</p>
                         <p>Your server listing will feature an eye-catching purple shadow around it and will be listed
-                            (at random) on the home page and at the top of your listings category. This attracts more
+                            on the home page and at the top of your listings category. This attracts more
                             users to your listing, resulting in more users joining your server!</p>
+                        <p>To purchase featured for your server listing(s), you have to go to your <a
+                                href="<?php echo $base_url; ?>/my-servers">My Servers</a> page, select the server you
+                            wish to have featured and the featured options will be on the right side below your
+                            analytics.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+    </script>
 </body>
 
 </html>

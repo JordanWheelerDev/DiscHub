@@ -1,14 +1,12 @@
 RewriteEngine On
 
-# Remove .php extension from files
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.php -f
-RewriteRule ^([^/]+)/?$ $1.php [L]
-
-# Reroute specific URLs
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+# Rewrite specific URLs with parameters
 RewriteRule ^server/([^/]+)/?$ server.php?sid=$1 [L,QSA]
 RewriteRule ^search/([^/]+)/?$ search.php?query=$1 [L,QSA]
 RewriteRule ^category/([^/]+)/?$ category.php?category=$1 [L,QSA]
 RewriteRule ^edit/([^/]+)/?$ edit.php?sid=$1 [L,QSA]
+
+# Remove .php extension from files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^([^/]+)/?$ $1.php [L]

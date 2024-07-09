@@ -86,6 +86,12 @@ $user = $_SESSION['user'];
         </div>
     </div>
     <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+
         function startCountdown(element, time) {
             let countdownTime = time;
 

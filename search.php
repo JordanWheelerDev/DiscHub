@@ -8,6 +8,7 @@ if (isset($_GET['query'])) {
     $query = trim($_GET['query']);
     $searchResults = searchServers($query);
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,74 @@ if (isset($_GET['query'])) {
 <body>
     <?php include "parts/navbar.php"; ?>
     <div class="container mt-5 mb-5">
+        <div class="row mb-4">
+            <div class="ds-header-m mb-4">Featured Servers</div>
+            <?php
+            // Fetch featured server IDs
+            $is_featured = 1;
+            $stmt = $conn->prepare("SELECT server_id FROM featured_servers WHERE NOW() < featured_until");
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Array to store featured server IDs
+            $featuredServerIds = [];
+            while ($row = $result->fetch_assoc()) {
+                $featuredServerIds[] = $row['server_id'];
+            }
+            $stmt->close();
+
+            // Query to fetch details of featured servers with additional filters
+            if (!empty($featuredServerIds)) {
+                $placeholders = implode(',', array_fill(0, count($featuredServerIds), '?'));
+                $tagsFilter = '%' . $query . '%'; // Adjust as per your search criteria
+                $descriptionFilter = '%' . $query . '%'; // Adjust as per your search criteria
+            
+                $qry = "SELECT * FROM servers WHERE server_id IN ($placeholders) AND (tags LIKE ? OR description LIKE ?) ORDER BY RAND() LIMIT 3";
+                $stmt = $conn->prepare($qry);
+
+                // Bind parameters: server IDs followed by tags and description filters
+                $bindParams = str_repeat('i', count($featuredServerIds)) . 'ss'; // 'ss' for two string parameters
+                $bindValues = array_merge($featuredServerIds, [$tagsFilter, $descriptionFilter]);
+                $stmt->bind_param($bindParams, ...$bindValues);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Check if any rows were returned
+                if ($result->num_rows == 0) {
+                    echo '<div class="col-12 text-center">No featured servers found.</div>';
+                } else {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="col-lg-4">
+                            <a href="server/<?php echo $row['server_id']; ?>" class="ds-server-link">
+                                <div class="ds-servers-featured">
+                                    <div class="ds-server-featured">
+                                        <div class="d-flex justify-content-between mb-3">
+                                            <div class="title-area"><?php echo htmlspecialchars($row['name']); ?> | <span
+                                                    class="category"><?php echo htmlspecialchars($row['category']); ?></span>
+                                                <?php if ($row['is_nsfw'] == 1) {
+                                                    echo '<span class="is_nsfw">NSFW</span>';
+                                                } ?>
+                                            </div>
+                                            <div><span class="server-info"><i class="fa-light fa-user"
+                                                        style="margin-right: 5px;"></i>
+                                                    <?php echo number_format($row['user_count']); ?></span></div>
+                                        </div>
+                                        <div class="description">
+                                            <?php echo htmlspecialchars($row['description']); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <?php }
+                }
+                $stmt->close();
+            } else {
+                echo '<div class="col-12 text-center">No featured servers found.</div>';
+            }
+            ?>
+        </div>
         <div class="row mb-4">
             <div class="col-md-8">
                 <div class="ds-servers">
@@ -66,6 +135,13 @@ if (isset($_GET['query'])) {
             </div>
         </div>
     </div>
+    <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+    </script>
 </body>
 
 </html>

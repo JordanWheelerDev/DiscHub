@@ -30,6 +30,12 @@ $server_id = $_GET['server_id'];
     <h2 style="text-align: center;">Adding Bot to Server ID <?php echo htmlspecialchars($server_id); ?></h2>
 
     <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+
         // Construct the bot invitation URL
         const clientId = '1258119042401701928'; // Replace with your bot's client ID
         const redirectUri = encodeURIComponent('<?php echo $discord_bot_uri; ?>');

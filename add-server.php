@@ -206,6 +206,12 @@ if (isset($_POST['addServerBtn'])) {
     </div>
 
     <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+
         document.getElementById('category').addEventListener('change', function () {
             var selectedOption = this.options[this.selectedIndex];
             var slug = selectedOption.getAttribute('data-slug');

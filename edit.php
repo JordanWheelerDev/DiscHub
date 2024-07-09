@@ -45,6 +45,8 @@ if (isset($_POST['editServerBtn'])) {
     header('Location: ' . $base_url . 'my-servers');
 }
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +62,7 @@ if (isset($_POST['editServerBtn'])) {
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="<?php echo $base_url; ?>/css/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="<?php echo $base_url; ?>/css/all.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body>
@@ -156,7 +159,7 @@ if (isset($_POST['editServerBtn'])) {
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card ds-card rounded-0">
+                <div class="card ds-card rounded-0 mb-3">
                     <div class="card-body">
                         <div class="mb-3 ds-header-s">Analytics</div>
                         <div class="d-flex justify-content-between">
@@ -169,6 +172,12 @@ if (isset($_POST['editServerBtn'])) {
         </div>
     </div>
     <script>
+        var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
+
+        if (currentPath !== window.location.pathname) {
+            window.location.replace(window.location.origin + currentPath);
+        }
+
         document.getElementById('category').addEventListener('change', function () {
             var selectedOption = this.options[this.selectedIndex];
             var slug = selectedOption.getAttribute('data-slug');

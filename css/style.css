@@ -621,3 +621,18 @@ body {
 .text-sm {
   font-size: 12px;
 }
+
+.plan-text {
+  font-size: 24px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.eyecatch-text {
+  color: #8844ff;
+}
+
+a {
+  color: #8844ff;
+  text-decoration: none;
+}
