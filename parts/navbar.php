@@ -135,6 +135,16 @@ if (isset($_SESSION['user'])) {
                             </li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Help
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/help/getting-started">Getting
+                                    Started</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="nav-item dropdown">
                     <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button"
