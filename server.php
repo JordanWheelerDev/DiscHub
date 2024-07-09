@@ -69,26 +69,28 @@ $tags = explode(',', $guild['tags']);
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="servers mb-4">
-                    <div class="server">
-                        <?php
-                        $lastbump = new DateTime($guild['last_bump']);
-                        $nextbump = new DateTime($guild['last_bump']);
-                        $nextbump->add(new DateInterval('PT2H'));
 
-                        $currenttime = new DateTime();
+                <?php
+                $lastbump = new DateTime($guild['last_bump']);
+                $nextbump = new DateTime($guild['last_bump']);
+                $nextbump->add(new DateInterval('PT2H'));
 
-                        if ($currenttime >= $nextbump) {
-                            echo '<a href="#" class="btn btn-primary-sm" data-server-id="' . $guild['id'] . '">Bump Server</a>';
-                        } else {
-                            // Calculate time difference in seconds
-                            $timeDiff = $nextbump->getTimestamp() - $currenttime->getTimestamp();
-                            echo '<div class="countdown text-center" data-time="' . $timeDiff . '"></div>';
-                        }
-                        ?>
-                    </div>
-                </div>
-                <button type="button" class="btn discord-join-btn rounded-1"
+                $currenttime = new DateTime();
+
+                if ($currenttime >= $nextbump) {
+                    echo '<a href="#" class="btn btn-primary rounded-1 w-100" data-server-id="' . $guild['id'] . '">Bump Server</a>';
+                } else {
+                    // Calculate time difference in seconds
+                    $timeDiff = $nextbump->getTimestamp() - $currenttime->getTimestamp();
+                    echo '<div class="ds-servers">';
+                    echo '<div class="ds-server">';
+                    echo '<div class="countdown text-center" data-time="' . $timeDiff . '"></div>';
+                    echo '</div>';
+                    echo '</div>';
+
+                }
+                ?>
+                <button type="button" class="btn discord-join-btn rounded-1 mt-3"
                     onclick="window.open('<?php echo $guild['invite_link']; ?>', '_blank')">Join Discord Server</button>
             </div>
         </div>
@@ -139,7 +141,7 @@ $tags = explode(',', $guild['tags']);
         });
 
         // Add event listener for bump button clicks
-        document.querySelectorAll('.btn-primary-sm').forEach(btn => {
+        document.querySelectorAll('.btn-primary').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
                 const serverId = this.getAttribute('data-server-id');
