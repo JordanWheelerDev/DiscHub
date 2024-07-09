@@ -244,9 +244,9 @@ if (isset($_POST['addServerBtn'])) {
             var tagsInput = document.getElementById('tagsInput');
             var inputValue = tagsInput.value;
 
-            // Check if comma or Enter key was pressed
-            if (event.key === ',' || event.key === 'Enter') {
-                var tags = inputValue.split(',');
+            // Check if comma or space key was pressed
+            if (event.key === ',' || event.key === ' ') {
+                var tags = inputValue.split(/[\s,]+/);
 
                 tags.forEach(function (tagText) {
                     tagText = tagText.trim();
@@ -255,18 +255,17 @@ if (isset($_POST['addServerBtn'])) {
                     }
                 });
 
-                // Clear the input field if there was a comma or Enter key
-                if (inputValue.includes(',') || event.key === 'Enter') {
+                // Clear the input field if there was a comma or space
+                if (inputValue.includes(',') || inputValue.includes(' ')) {
                     tagsInput.value = '';
                 }
 
-                // Prevent default behavior if Enter key was pressed
-                if (event.key === 'Enter') {
+                // Prevent default behavior if space key was pressed
+                if (event.key === ' ') {
                     event.preventDefault();
                 }
             }
         }
-
 
         function addTag(tagText) {
             var tagsContainer = document.getElementById('tagsContainer');
@@ -305,6 +304,7 @@ if (isset($_POST['addServerBtn'])) {
                 tagLimitMsg.style.display = 'none';
             }
         }
+
 
         function removeTag(tagText, tagElement) {
             // Find the index of the tag and remove it from the array
