@@ -115,7 +115,7 @@ if (isset($_GET['code'])) {
                 }
 
                 // Redirect to index or dashboard page
-                header('Location: index.php');
+                header('Location: ' . $base_url . '/index');
                 exit;
 
             } catch (Exception $e) {

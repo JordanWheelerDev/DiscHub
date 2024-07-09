@@ -41,12 +41,14 @@ if (!isset($_GET['category'])) {
 
                     $result = $stmt->get_result();
                     while ($row = $result->fetch_assoc()) {
+                        $tags = explode(',', $row['tags']);
                         ?>
                         <div class="ds-server mb-2">
                             <a href="<?php echo $base_url; ?>/server/<?php echo htmlspecialchars($row['server_id']); ?>"
                                 class="ds-server-link">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="title-area">
+                                        <img src="<?php echo $row['server_image']; ?>" class="server-image" alt="">
                                         <?php echo htmlspecialchars($row['name']); ?> |
                                         <span class="category"><?php echo htmlspecialchars($row['category']); ?></span>
                                     </div>
@@ -55,6 +57,11 @@ if (!isset($_GET['category'])) {
                                                 style="margin-right: 5px;"></i>
                                             <?php echo number_format($row['user_count']); ?></span>
                                     </div>
+                                </div>
+                                <div class="mb-3">
+                                    <?php foreach ($tags as $tag) { ?>
+                                        <span class="form-tag">#<?php echo $tag; ?></span>
+                                    <?php } ?>
                                 </div>
                                 <div class="description">
                                     <?php echo htmlspecialchars($row['description']); ?>

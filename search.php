@@ -74,7 +74,9 @@ if (isset($_GET['query'])) {
                                 <div class="ds-servers-featured">
                                     <div class="ds-server-featured">
                                         <div class="d-flex justify-content-between mb-3">
-                                            <div class="title-area"><?php echo htmlspecialchars($row['name']); ?> | <span
+                                            <div class="title-area">
+                                                <img src="<?php echo $row['server_image']; ?>" class="server-image-f" alt="">
+                                                <?php echo htmlspecialchars($row['name']); ?> | <span
                                                     class="category"><?php echo htmlspecialchars($row['category']); ?></span>
                                                 <?php if ($row['is_nsfw'] == 1) {
                                                     echo '<span class="is_nsfw">NSFW</span>';
@@ -85,7 +87,7 @@ if (isset($_GET['query'])) {
                                                     <?php echo number_format($row['user_count']); ?></span></div>
                                         </div>
                                         <div class="description">
-                                            <?php echo htmlspecialchars($row['description']); ?>
+                                            <?php echo limit_words(htmlspecialchars($row['description']), 50); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -109,6 +111,7 @@ if (isset($_GET['query'])) {
                                     class="ds-server-link">
                                     <div class="d-flex justify-content-between mb-3">
                                         <div class="title-area">
+                                            <img src="<?php echo $server['server_image']; ?>" class="server-image" alt="">
                                             <?php echo htmlspecialchars($server['name']); ?> |
                                             <span class="category"><?php echo htmlspecialchars($server['category']); ?></span>
                                         </div>

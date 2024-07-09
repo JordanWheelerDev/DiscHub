@@ -78,13 +78,16 @@ $pagename = "index";
                     echo '<div class="col-12 text-center">No featured servers found.</div>';
                 } else {
                     while ($row = $result->fetch_assoc()) {
+                        $tags = explode(',', $row['tags']);
                         ?>
                         <div class="col-lg-4">
                             <a href="server/<?php echo $row['server_id']; ?>" class="ds-server-link">
                                 <div class="ds-servers-featured">
                                     <div class="ds-server-featured">
                                         <div class="d-flex justify-content-between mb-3">
-                                            <div class="title-area"><?php echo htmlspecialchars($row['name']); ?> | <span
+                                            <div class="title-area">
+                                                <img src="<?php echo $row['server_image']; ?>" class="server-image-f" alt="">
+                                                <?php echo htmlspecialchars($row['name']); ?> | <span
                                                     class="category"><?php echo htmlspecialchars($row['category']); ?></span>
                                                 <?php if ($row['is_nsfw'] == 1) {
                                                     echo '<span class="is_nsfw">NSFW</span>';
@@ -93,6 +96,11 @@ $pagename = "index";
                                             <div><span class="server-info"><i class="fa-light fa-user"
                                                         style="margin-right: 5px;"></i>
                                                     <?php echo number_format($row['user_count']); ?></span></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <?php foreach ($tags as $tag) {
+                                                echo '<span class="form-tag-sm">#' . htmlspecialchars($tag) . '</span>';
+                                            } ?>
                                         </div>
                                         <div class="description">
                                             <?php echo limit_words(htmlspecialchars($row['description']), 20); ?>

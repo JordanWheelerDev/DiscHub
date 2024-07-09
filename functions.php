@@ -164,7 +164,9 @@ function getRecentlyBumpedServers()
         echo '<div class="ds-servers mb-2">';
         echo '    <div class="ds-server">';
         echo '        <div class="d-flex justify-content-between mb-3">';
-        echo '            <div class="title-area">' . htmlspecialchars($row['name']) . ' | <span class="category">' . htmlspecialchars($category) . '</span>';
+        echo '            <div class="title-area">';
+        echo '                <img src="' . $row['server_image'] . '" alt="Server Image" class="server-image" style="margin-right:10px;">';
+        echo '                ' . htmlspecialchars($row['name']) . ' | <span class="category">' . htmlspecialchars($category) . '</span>';
 
         if ($row['is_nsfw'] == 1) {
             echo ' <span class="is_nsfw">NSFW</span>';
@@ -174,16 +176,15 @@ function getRecentlyBumpedServers()
         echo '            <div><span class="server-info"><i class="fa-light fa-user" style="margin-right: 5px;"></i> ' . number_format($member_count) . '</span></div>';
         echo '        </div>';
         echo '        <div class="mb-3">';
-
         foreach ($tags as $tag) {
             echo '            <span class="server-tag">' . htmlspecialchars(trim($tag)) . '</span>';
         }
-
         echo '        </div>';
         echo '        <div class="description">' . limit_words(htmlspecialchars($row['description']), 50) . '</div>';
         echo '    </div>';
         echo '</div>';
         echo '</a>';
+
     }
 
 

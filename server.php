@@ -48,7 +48,9 @@ $tags = explode(',', $guild['tags']);
                 <div class="servers">
                     <div class="server">
                         <div class="d-flex justify-content-between mb-3">
-                            <div class="title-area"><?php echo $guild['name']; ?> | <span
+                            <div class="title-area">
+                                <img src="<?php echo $guild['server_image']; ?>" class="server-image" alt="">
+                                <?php echo $guild['name']; ?> | <span
                                     class="category"><?php echo $guild['category']; ?></span>
                                 <?php if ($guild['is_nsfw'] == 1) {
                                     echo '<span class="is_nsfw">NSFW</span>';

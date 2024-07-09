@@ -225,6 +225,22 @@ body {
   cursor: pointer;
 }
 
+.form-tag-sm {
+  background-color: #8928ea;
+  font-size: 12px;
+  color: white;
+  padding: 3px;
+  border-radius: 3px;
+  margin: 3px;
+  display: inline-block;
+  transition: all 0.5s ease;
+}
+
+.form-tag:hover {
+  background-color: #7923cf;
+  cursor: pointer;
+}
+
 .ds-header-l {
   font-size: 40px;
   font-weight: 200;
@@ -672,4 +688,18 @@ body {
 a {
   color: #8844ff;
   text-decoration: none;
+}
+
+.server-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.server-image-f {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
 }
