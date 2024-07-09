@@ -174,11 +174,12 @@ if (isset($_POST['addServerBtn'])) {
                                     <div class="mb-3 form-help-text">
                                         <ul>
                                             <li>Up to 5 tags allowed.</li>
-                                            <li>Use a comma to separate tags.</li>
+                                            <li>Use a comma or press Enter to separate tags.</li>
                                             <li>Click on a tag to remove.</li>
                                         </ul>
                                     </div>
-                                    <input type="text" id="tagsInput" class="ds-input mb-2" onkeyup="addTag(event)">
+                                    <input type="text" id="tagsInput" class="ds-input mb-2"
+                                        onkeyup="handleTagsInput(event)">
                                     <div id="tagsContainer" class="mb-2"></div>
                                     <input type="hidden" id="tags" name="tags">
                                     <div id="tagLimitMsg" class="form-help-text" style="color: red; display: none;">
@@ -242,20 +243,30 @@ if (isset($_POST['addServerBtn'])) {
         function handleTagsInput(event) {
             var tagsInput = document.getElementById('tagsInput');
             var inputValue = tagsInput.value;
-            var tags = inputValue.split(',');
 
-            tags.forEach(function (tagText) {
-                tagText = tagText.trim();
-                if (tagText && !tagsArray.includes(tagText)) {
-                    addTag(tagText);
+            // Check if comma or Enter key was pressed
+            if (event.key === ',' || event.key === 'Enter') {
+                var tags = inputValue.split(',');
+
+                tags.forEach(function (tagText) {
+                    tagText = tagText.trim();
+                    if (tagText && !tagsArray.includes(tagText)) {
+                        addTag(tagText);
+                    }
+                });
+
+                // Clear the input field if there was a comma or Enter key
+                if (inputValue.includes(',') || event.key === 'Enter') {
+                    tagsInput.value = '';
                 }
-            });
 
-            // Clear the input field if there was a comma
-            if (inputValue.includes(',')) {
-                tagsInput.value = '';
+                // Prevent default behavior if Enter key was pressed
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                }
             }
         }
+
 
         function addTag(tagText) {
             var tagsContainer = document.getElementById('tagsContainer');
