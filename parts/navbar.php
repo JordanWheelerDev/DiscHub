@@ -65,7 +65,7 @@ if (isset($_SESSION['user'])) {
                     </a>
                     <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="<?php echo $base_url; ?>/my-servers">My Servers</a></li>
-                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/add-server">Add Server</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>add-server">Add Server</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
