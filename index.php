@@ -10,6 +10,8 @@ $pagename = "index";
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="<?php echo $base_url; ?>/images/logo-w.png">
+    <meta name="description" content="Discover and manage your Discord servers.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DiscHub | Discord Server Listings</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
