@@ -18,6 +18,8 @@ $stmt->bind_param('s', $sid);
 $stmt->execute();
 $stmt->close();
 
+$tags = explode(',', $guild['tags']);
+
 
 ?>
 <!DOCTYPE html>
@@ -53,8 +55,13 @@ $stmt->close();
                             <div><span class="server-info"><i class="fa-light fa-user" style="margin-right: 5px;"></i>
                                     <?php echo number_format($guild['user_count']); ?></span></div>
                         </div>
+                        <div class="mb-4">
+                            <?php foreach ($tags as $tag) { ?>
+                                <span class="form-tag">#<?php echo $tag; ?></span>
+                            <?php } ?>
+                        </div>
                         <div class="description">
-                            <?php echo $guild['description']; ?>
+                            <?php echo nl2br($guild['description']); ?>
                         </div>
                     </div>
                 </div>

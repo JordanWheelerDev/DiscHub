@@ -60,7 +60,7 @@ $user = $_SESSION['user'];
                                             <?php echo number_format($row['user_count']); ?></span></div>
                                 </div>
                                 <div class="ms-description mb-3">
-                                    <?php echo $row['description']; ?>
+                                    <?php echo limit_words($row['description'], 20); ?>
                                 </div>
                                 <?php
                                 $lastbump = new DateTime($row['last_bump']);

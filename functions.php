@@ -22,6 +22,16 @@ if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
 }
 
+function limit_words($text, $limit)
+{
+    if (str_word_count($text, 0) > $limit) {
+        $words = str_word_count($text, 2);
+        $pos = array_keys($words);
+        $text = substr($text, 0, $pos[$limit]) . '...';
+    }
+    return $text;
+}
+
 function getMostUsedTags()
 {
     global $conn;
@@ -170,7 +180,7 @@ function getRecentlyBumpedServers()
         }
 
         echo '        </div>';
-        echo '        <div class="description">' . htmlspecialchars($row['description']) . '</div>';
+        echo '        <div class="description">' . limit_words(htmlspecialchars($row['description']), 50) . '</div>';
         echo '    </div>';
         echo '</div>';
         echo '</a>';

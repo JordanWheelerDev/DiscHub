@@ -31,10 +31,11 @@ include 'functions.php';
                         <p>Your server listing will feature an eye-catching purple shadow around it and will be listed
                             on the home page and at the top of your listings category. This attracts more
                             users to your listing, resulting in more users joining your server!</p>
-                        <p>To purchase featured for your server listing(s), you have to go to your <a
-                                href="<?php echo $base_url; ?>/my-servers">My Servers</a> page, select the server you
-                            wish to have featured and the featured options will be on the right side below your
-                            analytics.</p>
+                        <p>To purchase featured for your server listing(s), <a
+                                href="<?php echo $base_url; ?>/purchase-featured">click here</a> and select the server
+                            you
+                            wish to
+                            have featured and make a payment!</p>
                     </div>
                 </div>
             </div>

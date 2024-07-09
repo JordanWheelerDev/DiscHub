@@ -93,7 +93,7 @@ $pagename = "index";
                                                     <?php echo number_format($row['user_count']); ?></span></div>
                                         </div>
                                         <div class="description">
-                                            <?php echo htmlspecialchars($row['description']); ?>
+                                            <?php echo limit_words(htmlspecialchars($row['description']), 20); ?>
                                         </div>
                                     </div>
                                 </div>

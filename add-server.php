@@ -183,7 +183,8 @@ if (isset($_POST['addServerBtn'])) {
                                 </div>
                                 <div class="mb-3">
                                     <label for="inviteLink" class="ds-label">Server Invite Link</label>
-                                    <input type="text" id="inviteLink" class="ds-input" name="inviteLink">
+                                    <small>This is generated after you click "Add Server", invite the bot to your server
+                                        and type !setup in a channel where the bot has permission.</small>
                                 </div>
                                 <div class="mb-3">
                                     <label for="isNsfw" class="ds-label">Is this server NSFW?</label>
@@ -196,7 +197,7 @@ if (isset($_POST['addServerBtn'])) {
                                 <!-- Hidden inputs -->
                                 <!-- <input type="hidden" id="serverId" name="serverId" value="">
                                 <input type="hidden" id="ownerId" name="ownerId" value=""> -->
-                                <button type="submit" name="addServerBtn">Add Server</button>
+                                <button type="submit" class="btn btn-primary" name="addServerBtn">Add Server</button>
                             </form>
                         </div>
                     </div>

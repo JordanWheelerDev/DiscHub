@@ -103,7 +103,8 @@ if (isset($_GET['query'])) {
                     <?php if (!empty($searchResults)): ?>
                         <?php foreach ($searchResults as $server): ?>
                             <div class="ds-server">
-                                <a href="server/<?php echo htmlspecialchars($server['server_id']); ?>" class="ds-server-link">
+                                <a href="<?php echo $base_url; ?>/server/<?php echo htmlspecialchars($server['server_id']); ?>"
+                                    class="ds-server-link">
                                     <div class="d-flex justify-content-between mb-3">
                                         <div class="title-area">
                                             <?php echo htmlspecialchars($server['name']); ?> |
@@ -116,7 +117,7 @@ if (isset($_GET['query'])) {
                                         </div>
                                     </div>
                                     <div class="description">
-                                        <?php echo htmlspecialchars($server['description']); ?>
+                                        <?php echo limit_words(htmlspecialchars($server['description']), 50); ?>
                                     </div>
                                 </a>
                             </div>

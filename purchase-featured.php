@@ -61,7 +61,7 @@ $pagename = "purchase";
                             Featured Time
                         </div>
                         <div class="form-row">
-                            <label for="amount-select">Select Amount</label>
+                            <label for="amount-select" class="ds-label">Select Amount</label>
                             <select id="amount-select" class="ds-select mb-3">
                                 <option value="500">1 Week/$5.00 USD</option>
                                 <option value="1000">2 Weeks/$10.00 USD</option>
@@ -70,11 +70,17 @@ $pagename = "purchase";
                             </select>
                         </div>
 
-                        <div class="form-row">
-                            <label for="card-element">Credit or debit card</label>
-                            <div id="card-element">
+                        <div class="form-row mb-4">
+                            <label for="card-element" class="ds-label">Credit or debit card</label>
+                            <div id="card-element" class="ds-card-input mb-2">
                                 <!-- A Stripe Element will be inserted here. -->
                             </div>
+                            <div class="text-sm">
+                                This checkout process is securely handled by Stripe. We do not store or manage card
+                                details on our servers. All payment data is transmitted directly to Stripe for
+                                processing.
+                            </div>
+
                             <!-- Used to display form errors -->
                             <div id="card-errors" role="alert"></div>
                         </div>
@@ -92,11 +98,35 @@ $pagename = "purchase";
         if (currentPath !== window.location.pathname) {
             window.location.replace(window.location.origin + currentPath);
         }
+
         // Set your publishable API key here
         var stripe = Stripe('pk_test_51PaQvWJ2yiAWQzDVKnADdw7EX27sZclYwycXWX0fOPpPmYK8d7EUsGWjWCOraNvV2n6VXdQpOX13gC3IMEOvpolJ00dHAsGLpM');
         var elements = stripe.elements();
 
-        var card = elements.create('card');
+        var appearance = {
+            theme: 'night',
+            variables: {
+                colorPrimary: '#ffffff',
+                colorBackground: '#000000',
+                colorText: '#ffffff',
+                colorDanger: '#ff3b30',
+                spacingUnit: '4px',
+                borderRadius: '4px',
+            },
+            rules: {
+                '.Label': {
+                    color: '#ffffff',
+                },
+                '.Input': {
+                    color: '#ffffff',
+                },
+                '.Error': {
+                    color: '#ff3b30',
+                },
+            }
+        };
+
+        var card = elements.create('card', { appearance });
         card.mount('#card-element');
 
         var paymentForm = document.getElementById('payment-form');
@@ -147,6 +177,7 @@ $pagename = "purchase";
             document.body.appendChild(form);
             form.submit();
         }
+
     </script>
 
 </body>

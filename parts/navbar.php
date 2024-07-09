@@ -65,7 +65,7 @@ if (isset($_SESSION['user'])) {
                     </a>
                     <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="<?php echo $base_url; ?>/my-servers">My Servers</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="<?php echo $base_url; ?>/add-server">Add Server</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -88,25 +88,42 @@ if (isset($_SESSION['user'])) {
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="<?php echo $base_url; ?>/index">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Dropdown
+                            Categories
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/gaming">Gaming</a></li>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/community">Community</a>
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/technology
+                            ">Technology</a></li>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/art-design">Art &
+                                    Design</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/music">Music</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/anime">Anime</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/books-literature">Books &
+                                    Literature</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/fitness">Fitness</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/sports">Sports</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/education">Education</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/science">Science</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/movies-tv-shows">Movies &
+                                    TV
+                                    Shows</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/cooking">Cooking</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/travel">Travel</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/politics-debate">Politics &
+                                    Debate</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/pets-animals">Pets &
+                                    Animals</a>
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/fashion-beauty">Fashion &
+                                    Beauty</a>
+                            <li><a class="dropdown-item"
+                                    href="<?php echo $base_url; ?>/category/photography">Photography</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
                 <div class="nav-item dropdown">
