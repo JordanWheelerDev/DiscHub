@@ -61,7 +61,8 @@ if (isset($_SESSION['user'])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/help/getting-started">Getting
                                     Started</a></li>
-                            <li><a class="dropdown-item" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub Discord</b></a>
+                            <li><a class="dropdown-item" target="_blank" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub
+                                        Discord</b></a>
                             </li>
                         </ul>
                     </li>
@@ -145,7 +146,8 @@ if (isset($_SESSION['user'])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/help/getting-started">Getting
                                     Started</a></li>
-                            <li><a class="dropdown-item" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub Discord</b></a>
+                            <li><a class="dropdown-item" target="_blank" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub
+                                        Discord</b></a>
                         </ul>
                     </li>
                 </ul>
