@@ -104,7 +104,7 @@ if (isset($_GET['query'])) {
                 <div class="ds-servers">
                     <?php if (!empty($searchResults)): ?>
                         <?php foreach ($searchResults as $server): ?>
-                            <div class="ds-server">
+                            <div class="ds-server mb-2">
                                 <a href="<?php echo $base_url; ?>/server/<?php echo htmlspecialchars($server['server_id']); ?>"
                                     class="ds-server-link">
                                     <div class="d-flex justify-content-between mb-3">

@@ -15,7 +15,7 @@ if (!isset($_GET['category'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DiscHub | Search Results</title>
+    <title>DiscHub | Browse Servers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -42,7 +42,7 @@ if (!isset($_GET['category'])) {
                     $result = $stmt->get_result();
                     while ($row = $result->fetch_assoc()) {
                         ?>
-                        <div class="ds-server">
+                        <div class="ds-server mb-2">
                             <a href="<?php echo $base_url; ?>/server/<?php echo htmlspecialchars($row['server_id']); ?>"
                                 class="ds-server-link">
                                 <div class="d-flex justify-content-between mb-3">
@@ -65,9 +65,14 @@ if (!isset($_GET['category'])) {
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="servers mb-4">
-                    <div class="server">
-                        <!-- Additional content or filters -->
+                <div class="card ds-card rounded-0">
+                    <div class="card-body">
+                        <!-- Sidebar Ad -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9469778418525272"
+                            data-ad-slot="2794913944" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
             </div>

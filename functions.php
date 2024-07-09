@@ -161,7 +161,7 @@ function getRecentlyBumpedServers()
         $category = $row['category'];
 
         echo '<a href="server/' . $row['server_id'] . '" class="ds-server-link">';
-        echo '<div class="ds-servers">';
+        echo '<div class="ds-servers mb-2">';
         echo '    <div class="ds-server">';
         echo '        <div class="d-flex justify-content-between mb-3">';
         echo '            <div class="title-area">' . htmlspecialchars($row['name']) . ' | <span class="category">' . htmlspecialchars($category) . '</span>';
