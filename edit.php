@@ -45,6 +45,12 @@ if (isset($_POST['editServerBtn'])) {
     header('Location: ' . $base_url . 'my-servers');
 }
 
+if (isset($_POST['delServer'])) {
+    $stmt = $conn->prepare("DELETE FROM servers WHERE server_id =? AND owner_id =?");
+    $stmt->bind_param('ss', $sid, $oid);
+    $stmt->execute();
+    header('Location: ' . $base_url . 'my-servers');
+}
 
 
 ?>
@@ -168,6 +174,10 @@ if (isset($_POST['editServerBtn'])) {
                         </div>
                     </div>
                 </div>
+                <form action="" method="post">
+                    <button type="submit" name="delServer" class="del-serv-btn">Delete
+                        <?php echo $guild['name']; ?></button>
+                </form>
             </div>
         </div>
     </div>

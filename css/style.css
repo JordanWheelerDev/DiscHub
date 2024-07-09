@@ -606,6 +606,23 @@ body {
   border: 1px solid #647fff;
 }
 
+.del-serv-btn {
+  background-color: #d53a4f;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #d53a4f;
+  transition: all 0.5s ease;
+}
+
+.del-serv-btn:hover {
+  background-color: #b73344;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #b73344;
+}
+
 .text-xl {
   font-size: 30px;
 }
