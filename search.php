@@ -130,9 +130,14 @@ if (isset($_GET['query'])) {
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="servers mb-4">
-                    <div class="server">
-                        <!-- Additional content or filters -->
+                <div class="card ds-card rounded-0">
+                    <div class="card-body">
+                        <!-- Sidebar Ad -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9469778418525272"
+                            data-ad-slot="2794913944" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
             </div>

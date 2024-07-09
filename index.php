@@ -115,8 +115,15 @@ $pagename = "index";
                 <?php getRecentlyBumpedServers(); ?>
             </div>
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">ads</div>
+                <div class="card ds-card rounded-0">
+                    <div class="card-body">
+                        <!-- Sidebar Ad -->
+                        <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9469778418525272"
+                            data-ad-slot="2794913944" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>
