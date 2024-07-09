@@ -39,7 +39,7 @@ try {
         $stmt->execute();
         $stmt->close();
     }
-    header('Location: success.php');
+    header('Location: ' . $base_url . '/success/payment-success');
 } catch (\Stripe\Exception\CardException $e) {
     // Payment failed, redirect to error page
     header('Location: error.php');

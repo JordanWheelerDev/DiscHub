@@ -5,6 +5,7 @@ RewriteRule ^server/([^/]+)/?$ server.php?sid=$1 [L,QSA]
 RewriteRule ^search/([^/]+)/?$ search.php?query=$1 [L,QSA]
 RewriteRule ^category/([^/]+)/?$ category.php?category=$1 [L,QSA]
 RewriteRule ^edit/([^/]+)/?$ edit.php?sid=$1 [L,QSA]
+RewriteRule ^success/([^/]+)/?$ success.php?msg=$1 [L,QSA]
 
 # Remove .php extension from files
 RewriteCond %{REQUEST_FILENAME} !-d
