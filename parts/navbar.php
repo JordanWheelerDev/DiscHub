@@ -58,6 +58,8 @@ if (isset($_SESSION['user'])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/help/getting-started">Getting
                                     Started</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub Discord</b></a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -88,7 +90,7 @@ if (isset($_SESSION['user'])) {
 <?php } else { ?>
     <nav class="navbar navbar-expand-lg ds-navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">DiscordServers</a>
+            <a class="navbar-brand" href="#">DiscHub</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -143,6 +145,7 @@ if (isset($_SESSION['user'])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/help/getting-started">Getting
                                     Started</a></li>
+                            <li><a class="dropdown-item" href="https://discord.gg/UqcnkAsUyb"><b>DiscHub Discord</b></a>
                         </ul>
                     </li>
                 </ul>
