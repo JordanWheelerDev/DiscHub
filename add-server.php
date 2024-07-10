@@ -174,17 +174,20 @@ if (isset($_POST['addServerBtn'])) {
                                     <div class="mb-3 form-help-text">
                                         <ul>
                                             <li>Up to 5 tags allowed.</li>
-                                            <li>Use a comma to separate tags.</li>
+                                            <li>Use a comma to separate tags on desktops.</li>
                                             <li>Click on a tag to remove.</li>
                                         </ul>
                                     </div>
-                                    <input type="text" id="tagsInput" class="ds-input mb-2" onkeyup="addTag(event)">
+                                    <div class="mb-2">
+                                        <input type="text" id="tagsInput" class="ds-input" onkeyup="addTag(event)">
+                                    </div>
                                     <div id="tagsContainer" class="mb-2"></div>
                                     <input type="hidden" id="tags" name="tags">
                                     <div id="tagLimitMsg" class="form-help-text" style="color: red; display: none;">
                                         Maximum of 5 tags allowed.
                                     </div>
                                 </div>
+
                                 <div class="mb-3">
                                     <label for="inviteLink" class="ds-label">Server Invite Link</label>
                                     <small>This is generated after you click "Add Server", invite the bot to your server
@@ -239,63 +242,61 @@ if (isset($_POST['addServerBtn'])) {
             }
         }
 
-        function addTag() {
+        function addTag(event) {
             var tagsInput = document.getElementById('tagsInput');
             var tagsContainer = document.getElementById('tagsContainer');
             var tagsHiddenInput = document.getElementById('tags');
             var tagLimitMsg = document.getElementById('tagLimitMsg');
             var tagText = tagsInput.value.trim();
 
-            // Split the input value by commas
-            var tagParts = tagText.split(',');
-
-            // Process each part
-            for (var i = 0; i < tagParts.length; i++) {
-                var tag = tagParts[i].trim();
-
-                // Skip empty parts
-                if (tag === '') continue;
+            // Check if the input contains a comma
+            if (tagText.includes(',')) {
+                // Remove the comma and any trailing spaces
+                tagText = tagText.slice(0, -1).trim();
 
                 // Check if the tag already exists
-                if (tagsArray.includes(tag)) {
-                    alert('Tag already exists: ' + tag);
-                    continue;
+                if (tagsArray.includes(tagText)) {
+                    alert('Tag already exists.');
+                    tagsInput.value = '';
+                    return;
                 }
 
                 // Ensure the tags input doesn't exceed 5 tags
                 if (tagsArray.length >= 5) {
                     tagsInput.disabled = true;
                     tagLimitMsg.style.display = 'block';
-                    break;
+                    return;
                 }
 
-                // Create a new span element for the tag
-                var tagSpan = document.createElement('span');
-                tagSpan.className = 'form-tag';
-                tagSpan.textContent = tag;
+                if (tagText !== '') {
+                    // Create a new span element for the tag
+                    var tagSpan = document.createElement('span');
+                    tagSpan.className = 'form-tag';
+                    tagSpan.textContent = tagText;
 
-                // Add an event listener to remove the tag when clicked
-                tagSpan.addEventListener('click', function () {
-                    removeTag(tag, tagSpan);
-                });
+                    // Add an event listener to remove the tag when clicked
+                    tagSpan.addEventListener('click', function () {
+                        removeTag(tagText, tagSpan);
+                    });
 
-                // Append the span to the tags container
-                tagsContainer.appendChild(tagSpan);
+                    // Append the span to the tags container
+                    tagsContainer.appendChild(tagSpan);
 
-                // Add tag to the tags array
-                tagsArray.push(tag);
-            }
+                    // Add tag to the tags array
+                    tagsArray.push(tagText);
 
-            // Update the hidden input with the tags array
-            tagsHiddenInput.value = tagsArray.join(',');
+                    // Update the hidden input with the tags array
+                    tagsHiddenInput.value = tagsArray.join(',');
 
-            // Clear the input field
-            tagsInput.value = '';
+                    // Clear the input field
+                    tagsInput.value = '';
 
-            // Hide the tag limit message if previously displayed
-            if (tagsArray.length < 5) {
-                tagsInput.disabled = false;
-                tagLimitMsg.style.display = 'none';
+                    // Hide the tag limit message if previously displayed
+                    if (tagsArray.length < 5) {
+                        tagsInput.disabled = false;
+                        tagLimitMsg.style.display = 'none';
+                    }
+                }
             }
         }
 
