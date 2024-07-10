@@ -201,19 +201,25 @@ if (isset($_POST['delServer'])) {
         var tagsArray = <?php echo json_encode($tags); ?>;
 
         function addTag(event) {
-            if (event.key === ',') {
-                var tagsInput = document.getElementById('tagsInput');
-                var tagsContainer = document.getElementById('tagsContainer');
-                var tagsHiddenInput = document.getElementById('tags');
-                var tagLimitMsg = document.getElementById('tagLimitMsg');
-                var tagText = tagsInput.value.trim().slice(0, -1); // Remove the comma
+            var tagsInput = document.getElementById('tagsInput');
+            var tagsContainer = document.getElementById('tagsContainer');
+            var tagsHiddenInput = document.getElementById('tags');
+            var tagLimitMsg = document.getElementById('tagLimitMsg');
+            var tagText = tagsInput.value.trim();
 
+            // Check if the input contains a comma
+            if (tagText.includes(',')) {
+                // Remove the comma and any trailing spaces
+                tagText = tagText.slice(0, -1).trim();
+
+                // Check if the tag already exists
                 if (tagsArray.includes(tagText)) {
                     alert('Tag already exists.');
                     tagsInput.value = '';
                     return;
                 }
 
+                // Ensure the tags input doesn't exceed 5 tags
                 if (tagsArray.length >= 5) {
                     tagsInput.disabled = true;
                     tagLimitMsg.style.display = 'block';
@@ -221,27 +227,38 @@ if (isset($_POST['delServer'])) {
                 }
 
                 if (tagText !== '') {
+                    // Create a new span element for the tag
                     var tagSpan = document.createElement('span');
                     tagSpan.className = 'form-tag';
                     tagSpan.textContent = tagText;
+
+                    // Add an event listener to remove the tag when clicked
                     tagSpan.addEventListener('click', function () {
                         removeTag(tagText, tagSpan);
                     });
 
+                    // Append the span to the tags container
                     tagsContainer.appendChild(tagSpan);
+
+                    // Add tag to the tags array
                     tagsArray.push(tagText);
+
+                    // Update the hidden input with the tags array
                     tagsHiddenInput.value = tagsArray.join(',');
+
+                    // Clear the input field
                     tagsInput.value = '';
 
+                    // Hide the tag limit message if previously displayed
                     if (tagsArray.length < 5) {
                         tagsInput.disabled = false;
                         tagLimitMsg.style.display = 'none';
                     }
                 }
-
-                event.preventDefault();
             }
         }
+
+        document.getElementById('tagsInput').addEventListener('input', addTag);
 
         function removeTag(tagText, tagElement) {
             var tagIndex = tagsArray.indexOf(tagText);
