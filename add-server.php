@@ -254,6 +254,9 @@ if (isset($_POST['addServerBtn'])) {
                 // Remove the comma and any trailing spaces
                 tagText = tagText.slice(0, -1).trim();
 
+                // Convert to lowercase and replace spaces with hyphens
+                tagText = tagText.toLowerCase().replace(/\s+/g, '-');
+
                 // Check if the tag already exists
                 if (tagsArray.includes(tagText)) {
                     alert('Tag already exists.');
