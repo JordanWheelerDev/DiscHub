@@ -174,12 +174,11 @@ if (isset($_POST['addServerBtn'])) {
                                     <div class="mb-3 form-help-text">
                                         <ul>
                                             <li>Up to 5 tags allowed.</li>
-                                            <li>Use a comma or press Enter to separate tags.</li>
+                                            <li>Use a comma to separate tags.</li>
                                             <li>Click on a tag to remove.</li>
                                         </ul>
                                     </div>
-                                    <input type="text" id="tagsInput" class="ds-input mb-2"
-                                        onkeyup="handleTagsInput(event)">
+                                    <input type="text" id="tagsInput" class="ds-input mb-2" onkeyup="addTag(event)">
                                     <div id="tagsContainer" class="mb-2"></div>
                                     <input type="hidden" id="tags" name="tags">
                                     <div id="tagLimitMsg" class="form-help-text" style="color: red; display: none;">
@@ -240,71 +239,65 @@ if (isset($_POST['addServerBtn'])) {
             }
         }
 
-        function handleTagsInput(event) {
+        function addTag(event) {
             var tagsInput = document.getElementById('tagsInput');
-            var inputValue = tagsInput.value;
-
-            // Check if comma or space key was pressed
-            if (event.key === ',' || event.key === ' ') {
-                var tags = inputValue.split(/[\s,]+/);
-
-                tags.forEach(function (tagText) {
-                    tagText = tagText.trim();
-                    if (tagText && !tagsArray.includes(tagText)) {
-                        addTag(tagText);
-                    }
-                });
-
-                // Clear the input field if there was a comma or space
-                if (inputValue.includes(',') || inputValue.includes(' ')) {
-                    tagsInput.value = '';
-                }
-
-                // Prevent default behavior if space key was pressed
-                if (event.key === ' ') {
-                    event.preventDefault();
-                }
-            }
-        }
-
-        function addTag(tagText) {
             var tagsContainer = document.getElementById('tagsContainer');
             var tagsHiddenInput = document.getElementById('tags');
             var tagLimitMsg = document.getElementById('tagLimitMsg');
+            var tagText = tagsInput.value.trim();
 
-            // Ensure the tags input doesn't exceed 5 tags
-            if (tagsArray.length >= 5) {
-                document.getElementById('tagsInput').disabled = true;
-                tagLimitMsg.style.display = 'block';
-                return;
-            }
+            // Check if the input contains a comma
+            if (tagText.includes(',')) {
+                // Remove the comma and any trailing spaces
+                tagText = tagText.slice(0, -1).trim();
 
-            // Create a new span element for the tag
-            var tagSpan = document.createElement('span');
-            tagSpan.className = 'form-tag';
-            tagSpan.textContent = tagText;
+                // Check if the tag already exists
+                if (tagsArray.includes(tagText)) {
+                    alert('Tag already exists.');
+                    tagsInput.value = '';
+                    return;
+                }
 
-            // Add an event listener to remove the tag when clicked
-            tagSpan.addEventListener('click', function () {
-                removeTag(tagText, tagSpan);
-            });
+                // Ensure the tags input doesn't exceed 5 tags
+                if (tagsArray.length >= 5) {
+                    tagsInput.disabled = true;
+                    tagLimitMsg.style.display = 'block';
+                    return;
+                }
 
-            // Append the span to the tags container
-            tagsContainer.appendChild(tagSpan);
+                if (tagText !== '') {
+                    // Create a new span element for the tag
+                    var tagSpan = document.createElement('span');
+                    tagSpan.className = 'form-tag';
+                    tagSpan.textContent = tagText;
 
-            // Add tag to the tags array
-            tagsArray.push(tagText);
+                    // Add an event listener to remove the tag when clicked
+                    tagSpan.addEventListener('click', function () {
+                        removeTag(tagText, tagSpan);
+                    });
 
-            // Update the hidden input with the tags array
-            tagsHiddenInput.value = tagsArray.join(',');
+                    // Append the span to the tags container
+                    tagsContainer.appendChild(tagSpan);
 
-            // Hide the tag limit message if previously displayed
-            if (tagsArray.length < 5) {
-                document.getElementById('tagsInput').disabled = false;
-                tagLimitMsg.style.display = 'none';
+                    // Add tag to the tags array
+                    tagsArray.push(tagText);
+
+                    // Update the hidden input with the tags array
+                    tagsHiddenInput.value = tagsArray.join(',');
+
+                    // Clear the input field
+                    tagsInput.value = '';
+
+                    // Hide the tag limit message if previously displayed
+                    if (tagsArray.length < 5) {
+                        tagsInput.disabled = false;
+                        tagLimitMsg.style.display = 'none';
+                    }
+                }
             }
         }
 
+        document.getElementById('tagsInput').addEventListener('input', addTag);
 
         function removeTag(tagText, tagElement) {
             // Find the index of the tag and remove it from the array
