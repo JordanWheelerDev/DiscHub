@@ -67,11 +67,35 @@ foreach ($guildsData as $guild) {
     }
 }
 
+// Define an empty array for prohibited words
+$prohibited_words = [];
+
+// Get prohibited words from the database
+$stmt = $conn->prepare("SELECT * FROM prohibited_words");
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $prohibited_words[] = $row['word'];
+}
+
+// Function to check for prohibited words and return found words
+function get_prohibited_words($text, $prohibited_words)
+{
+    $found_words = [];
+    foreach ($prohibited_words as $word) {
+        if (stripos($text, $word) !== false) {
+            $found_words[] = $word;
+        }
+    }
+    return $found_words;
+}
+
 if (isset($_POST['addServerBtn'])) {
     $server_id = $_POST['servId'];
     $name = $_POST['serverName'];
     $description = $_POST['description'];
-    $invite_link = $_POST['inviteLink'];
+    $invite_link = "";
     $category = $_POST['category'];
     $category_slug = $_POST['category_slug'];
     $tags = $_POST['tags'];
@@ -79,19 +103,39 @@ if (isset($_POST['addServerBtn'])) {
     $owner_id = $userId;
     $last_bump = date('Y-m-d H:i:s');
     $user_count = ""; // get the user count for the server;
-    $is_nsfw = 0; // set it to 0 by default;
-    $views = 0; // set it to 0 by default;
+    $is_nsfw = 0; // set it to 0 (false) by default;
+    $views = 0; // set it to 0 (false) by default;
+    $is_public = 1; // set it to 1 (true) by default;
+    $is_approved = 1; // set it to 1 (true) by default;
+
+    // Check for prohibited words in the description and tags
+    $flagged_words = array_merge(
+        get_prohibited_words($description, $prohibited_words),
+        get_prohibited_words($tags, $prohibited_words)
+    );
+
+    if (!empty($flagged_words)) {
+        $is_approved = 0;
+        $flagged_words_str = implode(', ', $flagged_words);
+
+        // Insert flagged words into server_flags table
+        $flag_stmt = $conn->prepare("INSERT INTO server_flags (server_id, flagged_words) VALUES (?, ?)");
+        $flag_stmt->bind_param('ss', $server_id, $flagged_words_str);
+        $flag_stmt->execute();
+    }
 
     // Add server to the database
-    $stmt = $conn->prepare("INSERT INTO servers (server_id, name, description, invite_link, category, category_slug, tags, server_image, owner_id, last_bump, user_count, is_nsfw, views) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param('ssssssssssiis', $server_id, $name, $description, $invite_link, $category, $category_slug, $tags, $server_image, $owner_id, $last_bump, $user_count, $is_nsfw, $views);
+    $stmt = $conn->prepare("INSERT INTO servers (server_id, name, description, invite_link, category, category_slug, tags, server_image, owner_id, last_bump, user_count, is_nsfw, views, is_public, is_approved) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param('ssssssssssiiiis', $server_id, $name, $description, $invite_link, $category, $category_slug, $tags, $server_image, $owner_id, $last_bump, $user_count, $is_nsfw, $views, $is_public, $is_approved);
     $stmt->execute();
 
     // Redirect to the servers page
     header('Location: add-bot?server_id=' . urlencode($server_id));
     exit;
-
 }
+
+
+
 
 ?>
 <!DOCTYPE html>
