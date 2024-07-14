@@ -21,11 +21,12 @@ $stmt->close();
 $tags = explode(',', $guild['tags']);
 
 if (isset($_POST['submitReport'])) {
+    $server_name = $guild['name'];
     $report_reason = $_POST['report_reason'];
     $report_message = $_POST['report_message'];
     $report_screenshot = $_POST['report_screenshot'];
-    $stmt = $conn->prepare("INSERT INTO reports (server_id, report_reason, report_message, report_screenshot) VALUES (?,?,?,?)");
-    $stmt->bind_param('ssss', $sid, $report_reason, $report_message, $report_screenshot);
+    $stmt = $conn->prepare("INSERT INTO reports (server_id, server_name, report_reason, report_message, report_screenshot) VALUES (?, ?,?,?,?)");
+    $stmt->bind_param('sssss', $sid, $server_name, $report_reason, $report_message, $report_screenshot);
     $stmt->execute();
     $stmt->close();
     header('Location: ' . $base_url . 'server/' . $sid . '?report=success');
