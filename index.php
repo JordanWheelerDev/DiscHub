@@ -4,6 +4,15 @@ include 'functions.php';
 
 $pagename = "index";
 
+if (!isset($_SESSION['user'])) {
+    // do nothing if not logged in
+} else {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
