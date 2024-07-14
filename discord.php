@@ -4,15 +4,11 @@ session_start();
 include 'functions.php';
 
 // Redirect to dashboard if user is already logged in
-if (!isset($_SESSION['user'])) {
-    header('Location: ' . $base_url . '/index');
+if (isset($_SESSION['user'])) {
+    header('Location: dashboard.php');
     exit;
-} else {
-    if (checkForBan()) {
-        header('Location: ' . $base_url . '/banned');
-        exit;
-    }
 }
+
 $client_id = "1258119042401701928";
 $client_secret = "s8ps-iplp2zcjV7yh_6B3maZYYDTYoZj";
 $scopes = "identify+email+guilds+connections";
