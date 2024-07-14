@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 include 'functions.php';
 
 // Redirect to dashboard if user is already logged in
