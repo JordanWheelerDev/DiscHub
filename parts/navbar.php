@@ -3,7 +3,9 @@ if (isset($_SESSION['user'])) {
     ?>
     <nav class="navbar navbar-expand-lg ds-navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">DiscHub</a>
+            <a class="navbar-brand" href="<?php echo $base_url; ?>/index">
+                <img src="images/site/logo.png" class="nav-logo img-fluid" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -91,7 +93,9 @@ if (isset($_SESSION['user'])) {
 <?php } else { ?>
     <nav class="navbar navbar-expand-lg ds-navbar">
         <div class="container">
-            <a class="navbar-brand" href="#">DiscHub</a>
+            <a class="navbar-brand" href="<?php echo $base_url; ?>/index">
+                <img src="images/site/logo.png" class="nav-logo img-fluid" alt="">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
