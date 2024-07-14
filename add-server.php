@@ -7,6 +7,11 @@ $pagename = "add server";
 if (!isset($_SESSION['user'])) {
     header('Location: ' . $base_url . '/login'); // Redirect to login if not logged in
     exit;
+} else {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
 }
 
 // Get user data from session

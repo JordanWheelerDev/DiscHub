@@ -3,6 +3,13 @@ include 'functions.php';
 
 $pagename = "server";
 
+if (isset($_SESSION['user'])) {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
+}
+
 if (isset($_GET['sid'])) {
     $sid = $_GET['sid'];
     $stmt = $conn->prepare("SELECT * FROM servers WHERE server_id =?");

@@ -3,6 +3,15 @@
 include 'functions.php';
 
 $pagename = "index";
+
+if (isset($_SESSION['user'])) {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -66,10 +75,15 @@ $pagename = "index";
             }
             $stmt->close();
 
-            // Query to fetch details of featured servers from the 'servers' table
+            // Query to fetch details of featured servers from the 'servers' table, excluding those owned by banned users
             if (!empty($featuredServerIds)) {
                 $placeholders = implode(',', array_fill(0, count($featuredServerIds), '?'));
-                $query = "SELECT * FROM servers WHERE server_id IN ($placeholders)";
+                $query = "
+        SELECT s.* 
+        FROM servers s
+        LEFT JOIN bans b ON s.owner_id = b.user_id
+        WHERE s.server_id IN ($placeholders) AND b.user_id IS NULL
+    ";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param(str_repeat('i', count($featuredServerIds)), ...$featuredServerIds);
                 $stmt->execute();
@@ -118,6 +132,7 @@ $pagename = "index";
                 echo '<div class="col-12 text-center">No featured servers found.</div>';
             }
             ?>
+
         </div>
         <div class="row">
             <div class="ds-header-m mb-3">Recently Bumped Servers</div>

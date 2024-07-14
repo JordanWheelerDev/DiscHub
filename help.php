@@ -7,6 +7,16 @@ if (isset($_GET['topic'])) {
     header('Location: ' . $base_url . '/index');
 }
 
+if (!isset($_SESSION['user'])) {
+    header('Location: ' . $base_url . '/index');
+    exit;
+} else {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

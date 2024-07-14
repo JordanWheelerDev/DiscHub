@@ -749,3 +749,22 @@ a {
 .ds-modal-footer {
   border-top: 1px solid #22252b;
 }
+
+.banned-title {
+  color: #fa9c9c;
+  font-size: 40px;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.ds-table {
+  background-color: transparent;
+}
+
+.ds-table th,
+.ds-table td {
+  border-bottom: 1px solid #22252b;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+}

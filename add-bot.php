@@ -5,7 +5,13 @@ include 'functions.php'; // Include your database connection and other functions
 if (!isset($_SESSION['user'])) {
     header('Location: ' . $base_url . '/index');
     exit;
+} else {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
 }
+
 
 // Get server ID from URL parameter
 if (!isset($_GET['server_id'])) {

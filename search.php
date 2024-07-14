@@ -8,6 +8,12 @@ if (isset($_GET['query'])) {
     $query = trim($_GET['query']);
     $searchResults = searchServers($query);
 }
+if (isset($_SESSION['user'])) {
+    if (checkForBan()) {
+        header('Location: ' . $base_url . '/banned');
+        exit;
+    }
+}
 
 ?>
 <!DOCTYPE html>

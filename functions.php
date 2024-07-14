@@ -20,6 +20,7 @@ session_start();
 
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
+    $userId = $user['id'];
 }
 
 function limit_words($text, $limit)
@@ -149,8 +150,9 @@ function getRecentlyBumpedServers()
 
     // Prepare the SQL statement
     $ispub = 1;
-    $stmt = $conn->prepare("SELECT * FROM servers WHERE is_public = ? ORDER BY last_bump DESC LIMIT 10");
-    $stmt->bind_param('i', $ispub);
+    $isapvd = 1;
+    $stmt = $conn->prepare("SELECT * FROM servers WHERE is_public = ? AND is_approved = ? ORDER BY last_bump DESC LIMIT 10");
+    $stmt->bind_param('ii', $ispub, $isapvd);
     $stmt->execute();
 
     // Get the result
@@ -269,4 +271,21 @@ function searchServers($query)
 
     $stmt->close();
     return $servers;
+}
+
+function checkForBan()
+{
+    global $conn;
+    global $userId;
+
+    $stmt = $conn->prepare("SELECT * FROM bans WHERE user_id = ?");
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
