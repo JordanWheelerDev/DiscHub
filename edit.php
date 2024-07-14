@@ -52,11 +52,39 @@ if (isset($_POST['editServerBtn'])) {
 }
 
 if (isset($_POST['delServer'])) {
-    $stmt = $conn->prepare("DELETE FROM servers WHERE server_id =? AND owner_id =?");
-    $stmt->bind_param('ss', $sid, $oid);
-    $stmt->execute();
-    header('Location: ' . $base_url . 'my-servers');
+    // Check if the server_id exists in the server_flags table
+    $stmt1 = $conn->prepare("SELECT * FROM server_flags WHERE server_id = ?");
+    $stmt1->bind_param('s', $sid);
+    $stmt1->execute();
+    $stmt1->store_result();
+
+    if ($stmt1->num_rows > 0) {
+        // If it exists, delete the row from the server_flags table
+        $stmt1->close();
+
+        $stmt1 = $conn->prepare("DELETE FROM server_flags WHERE server_id = ?");
+        $stmt1->bind_param('s', $sid);
+        $stmt1->execute();
+        $stmt1->close();
+    } else {
+        $stmt1->close();
+    }
+
+    // Prepare and execute the query to delete from servers
+    $stmt2 = $conn->prepare("DELETE FROM servers WHERE server_id = ? AND owner_id = ?");
+    $stmt2->bind_param('ss', $sid, $oid);
+
+    if ($stmt2->execute()) {
+        header('Location: ' . $base_url . 'my-servers');
+        exit(); // Make sure to exit after redirect to prevent further script execution
+    } else {
+        echo "Error deleting server: " . $stmt2->error;
+    }
+
+    $stmt2->close();
 }
+
+
 
 
 ?>
