@@ -4,14 +4,6 @@ include 'functions.php';
 
 $pagename = "index";
 
-if (isset($_SESSION['user'])) {
-    if (checkForBan()) {
-        header('Location: ' . $base_url . '/banned');
-        exit;
-    }
-    exit;
-}
-
 ?>
 
 <!DOCTYPE html>
