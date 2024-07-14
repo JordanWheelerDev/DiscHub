@@ -20,6 +20,17 @@ $stmt->close();
 
 $tags = explode(',', $guild['tags']);
 
+if (isset($_POST['submitReport'])) {
+    $report_reason = $_POST['report_reason'];
+    $report_message = $_POST['report_message'];
+    $report_screenshot = $_POST['report_screenshot'];
+    $stmt = $conn->prepare("INSERT INTO reports (server_id, report_reason, report_message, report_screenshot) VALUES (?,?,?,?)");
+    $stmt->bind_param('ssss', $sid, $report_reason, $report_message, $report_screenshot);
+    $stmt->execute();
+    $stmt->close();
+    header('Location: ' . $base_url . 'server/' . $sid . '?report=success');
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -82,7 +93,7 @@ $tags = explode(',', $guild['tags']);
                 $currenttime = new DateTime();
 
                 if ($currenttime >= $nextbump) {
-                    echo '<a href="#" class="btn btn-primary rounded-1 w-100" data-server-id="' . $guild['id'] . '">Bump Server</a>';
+                    echo '<a href="#" class="btn btn-primary rounded-1 w-100 mb-2" data-server-id="' . $guild['id'] . '"><i class="fa-solid fa-arrow-up-short-wide"></i> Bump Server</a>';
                 } else {
                     // Calculate time difference in seconds
                     $timeDiff = $nextbump->getTimestamp() - $currenttime->getTimestamp();
@@ -94,11 +105,91 @@ $tags = explode(',', $guild['tags']);
 
                 }
                 ?>
-                <button type="button" class="btn discord-join-btn rounded-1 mt-3"
-                    onclick="window.open('<?php echo $guild['invite_link']; ?>', '_blank')">Join Discord Server</button>
+                <div class="mb-2">
+                    <button type="button" class="btn discord-join-btn rounded-1 mt-3 w-100"
+                        onclick="window.open('<?php echo $guild['invite_link']; ?>', '_blank')"><i
+                            class="fa-brands fa-discord"></i> Join Discord Server</button>
+                </div>
+                <?php if (isset($_GET['report']) && $_GET['report'] == 'success') { ?>
+                    <div class="msg-danger mt-3">
+                        <div>
+                            <p><b>Thank you!</b> We have receieved your report and will review it as soon as possible. Thank
+                                you
+                                for help improve and keep the community safe.</p>
+                        </div>
+                        <div class="text-sm">All reports are anonymous for the safety of our members. The only information
+                            we receive is the reason for reporting, your message and if provided, your screenshots. We don't
+                            store information on who submits the reports. See <a
+                                href="<?php echo $base_url; ?>/privacy-policy">our privacy policy</a> for more information.
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <div class="mb-2">
+                        <button type="button" class="btn report-btn rounded-1 mt-3 w-100" data-bs-toggle="modal"
+                            data-bs-target="#reportModal"><i class="fa-solid fa-flag"></i>
+                            Report <?php echo $guild['name']; ?></button>
+                    </div>
+                <?php } ?>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-0 ds-modal ">
+                <div class="modal-header ds-modal-header">
+                    <h1 class="modal-title fs-5" id="reportModalLabel">Report <?php echo $guild['name']; ?></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="" method="post">
+                                <!-- <div class="mb-3">
+                                    <div class="mb-3">
+                                        <label for="serverName" class="ds-label">Server Name</label>
+                                        <input type="text" name="serverName" id="serverName" class="ds-input" readonly>
+                                    </div>
+                                </div> -->
+                                <div class="mb-3">
+                                    <label for="reportReason" class="ds-label">Report Reason</label>
+                                    <select name="report_reason" id="reportReason" class="ds-select" required>
+                                        <option value="" selected>Please select an option</option>
+                                        <option value="Terms of Service Violation">Terms of Service Violation</option>
+                                        <option value="Spamming or Harassment">Spamming or Harassment</option>
+                                        <option value="Scamming">Scamming</option>
+                                        <option value="Harmful Content">Harmful Content</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="reportMessage" class="ds-label">Report Message</label>
+                                    <textarea name="report_message" id="reportMessage" class="ds-textarea" rows="5"
+                                        required></textarea>
+                                    <div class="mt-2">
+                                        <label for="reportScreenshot" class="ds-label">Attach Screenshot
+                                            (optional)</label>
+                                        <input type="text" name="report_screenshot" id="reportScreenshot"
+                                            class="ds-input">
+                                        <div class="text-sm mt-2">Attach a link to an image, to images or to a video
+                                            supporting the report. You can host images on <a
+                                                href="https://imgur.com">https://imgur.com</a>. This is completely
+                                            optional but recommended.</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="submit" name="submitReport"
+                                        class="btn report-btn rounded-0 float-end">Send
+                                        Report</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var currentPath = window.location.pathname.replace(/\/{2,}/g, "/");
 

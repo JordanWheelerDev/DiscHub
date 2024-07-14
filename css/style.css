@@ -725,3 +725,27 @@ a {
   width: auto;
   height: 40px;
 }
+
+.report-btn {
+  background-color: #ea2828;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.report-btn:hover {
+  background-color: #d53a4f;
+}
+
+.ds-modal {
+  background-color: #39404b;
+}
+
+.ds-modal-header {
+  border-bottom: 1px solid #22252b;
+}
+
+.ds-modal-footer {
+  border-top: 1px solid #22252b;
+}
