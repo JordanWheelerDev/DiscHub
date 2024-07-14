@@ -112,26 +112,30 @@ if (isset($_SESSION['user'])) {
                             </li>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/technology
                             ">Technology</a></li>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/art-design">Art &
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/art-and-design">Art &
                                     Design</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/music">Music</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/anime">Anime</a>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/books-literature">Books &
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/books-and-literature">Books
+                                    &
                                     Literature</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/fitness">Fitness</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/sports">Sports</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/education">Education</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/science">Science</a>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/movies-tv-shows">Movies &
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/movies-and-tv-shows">Movies
+                                    &
                                     TV
                                     Shows</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/cooking">Cooking</a>
                             <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/travel">Travel</a>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/politics-debate">Politics &
+                            <li><a class="dropdown-item"
+                                    href="<?php echo $base_url; ?>/category/politics-and-debate">Politics &
                                     Debate</a>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/pets-animals">Pets &
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/pets-and-animals">Pets &
                                     Animals</a>
-                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/fashion-beauty">Fashion &
+                            <li><a class="dropdown-item" href="<?php echo $base_url; ?>/category/fashion-and-beauty">Fashion
+                                    &
                                     Beauty</a>
                             <li><a class="dropdown-item"
                                     href="<?php echo $base_url; ?>/category/photography">Photography</a>

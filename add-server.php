@@ -97,7 +97,6 @@ if (isset($_POST['addServerBtn'])) {
     $description = $_POST['description'];
     $invite_link = "";
     $category = $_POST['category'];
-    $category_slug = $_POST['category_slug'];
     $tags = $_POST['tags'];
     $server_image = "";
     $owner_id = $userId;
@@ -107,6 +106,10 @@ if (isset($_POST['addServerBtn'])) {
     $views = 0; // set it to 0 (false) by default;
     $is_public = 1; // set it to 1 (true) by default;
     $is_approved = 1; // set it to 1 (true) by default;
+
+    if (!empty($category)) {
+        $category_slug = strtolower(str_replace(' ', '-', str_replace('&', 'and', $category)));
+    }
 
     // Check for prohibited words in the description and tags
     $flagged_words = array_merge(
@@ -192,12 +195,12 @@ if (isset($_POST['addServerBtn'])) {
                                 <input type="hidden" name="servId" id="servId" value="<?php echo $serverId; ?>">
                                 <div class="mb-3">
                                     <label for="description" class="ds-label">Server Description</label>
-                                    <textarea id="description" class="ds-textarea" name="description" rows="4"
-                                        cols="50"></textarea>
+                                    <textarea id="description" class="ds-textarea" name="description" rows="4" cols="50"
+                                        required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="category" class="ds-label">Server Category</label>
-                                    <select name="category" id="category" class="ds-select">
+                                    <select name="category" id="category" class="ds-select" required>
                                         <option value="" selected>Please select a category</option>
                                         <?php
                                         $stmt = $conn->prepare("SELECT * FROM categories");
@@ -213,7 +216,6 @@ if (isset($_POST['addServerBtn'])) {
                                             </option>
                                         <?php } ?>
                                     </select>
-                                    <input type="hidden" name="category_slug" id="category_slug" value="">
                                 </div>
                                 <div class="mb-3">
                                     <label for="tags" class="ds-label">Server Tags</label>
@@ -236,13 +238,14 @@ if (isset($_POST['addServerBtn'])) {
 
                                 <div class="mb-3">
                                     <label for="inviteLink" class="ds-label">Server Invite Link</label>
-                                    <small>This is generated after you click "Add Server", invite the bot to your server
-                                        and type !setup in a channel where the bot has permission.</small>
+                                    <div><small>This is generated after you click "Add Server", invite the bot to your
+                                            server
+                                            and type !setup in a channel where the bot has permission.</small></div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="isNsfw" class="ds-label">Is this server NSFW?</label>
-                                    <select name="isNsfw" id="isNsfw" class="ds-select">
-                                        <option selected>Please select an option</option>
+                                    <select name="isNsfw" id="isNsfw" class="ds-select" required>
+                                        <option value="" selected>Please select an option</option>
                                         <option value="0">No</option>
                                         <option value="1">Yes</option>
                                     </select>
@@ -266,12 +269,6 @@ if (isset($_POST['addServerBtn'])) {
             window.location.replace(window.location.origin + currentPath);
         }
 
-        document.getElementById('category').addEventListener('change', function () {
-            var selectedOption = this.options[this.selectedIndex];
-            var slug = selectedOption.getAttribute('data-slug');
-            document.getElementById('category_slug').value = slug;
-        });
-        // Array to hold tags
         var tagsArray = [];
 
         function showAddForm() {
