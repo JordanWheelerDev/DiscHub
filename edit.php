@@ -29,6 +29,7 @@ if (isset($_GET['sid'])) {
     exit;
 }
 
+
 if (isset($_POST['editServerBtn'])) {
     $name = $_POST['serverName'];
     $description = $_POST['description'];
@@ -80,6 +81,47 @@ if (isset($_POST['delServer'])) {
     <div class="container mt-5 mb-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-md-8">
+                <?php
+                $stmt = $conn->prepare("SELECT * FROM server_flags WHERE server_id =?");
+                $stmt->bind_param('s', $sid);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                if ($result->num_rows > 0) {
+                    if (empty($row['reasoning']) && empty($row['reviewed_by']) && $row['approved'] == 0) {
+                        ?>
+                        <div class="msg-danger mb-3">
+                            <div><b>Oh No!</b> It appears that your server is currently under review. There are a
+                                few things
+                                that
+                                could have flagged this:</div>
+                            <div>
+                                <ul>
+                                    <li><b>Prohibited keywords</b>: your description, server name, or tags may have flagged our
+                                        prohibited keyword algorithm.</li>
+                                    <li><b>ToS breaking content</b>: your server may have content that goes against our <a
+                                            href="<?php echo $base_url; ?>/tos">Terms of Service</a>.</li>
+                                    <li><b>User reports</b>: your listing may have been reported several times - thus forcing us
+                                        conduct an investigation.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <b>Please note:</b> We're here to help and we'll do our best to get your server approved as soon
+                                as possible.
+                                When we have reviewed your sever and if we respond with approval then this message will be
+                                disappear, if we respond with a rejection, this message will be replaced with the reasoning for
+                                rejection.
+                            </div>
+                        </div>
+                    <?php } else if ($row['approved'] == 0 && !empty($row['reasoning'])) { ?>
+                            <div class="msg-danger mb-3">
+                                <div><b>Oh No!</b> It appears that your server has been rejected.</div>
+                                <div>
+                                    <b>Reasoning:</b> <?php echo htmlspecialchars($row['reasoning']); ?>
+                                </div>
+                            </div>
+                    <?php }
+                } ?>
                 <div class="servers">
                     <div class="server">
                         <div class="mb-3 ds-header-m">

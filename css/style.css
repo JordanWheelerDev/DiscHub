@@ -706,3 +706,17 @@ a {
   object-fit: cover;
   border-radius: 50%;
 }
+
+.msg-danger {
+  background-color: rgb(225, 109, 109);
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid rgb(203, 98, 98);
+}
+
+.msg-danger a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}

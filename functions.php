@@ -148,7 +148,9 @@ function getRecentlyBumpedServers()
     global $conn;
 
     // Prepare the SQL statement
-    $stmt = $conn->prepare("SELECT * FROM servers ORDER BY last_bump DESC LIMIT 10");
+    $ispub = 1;
+    $stmt = $conn->prepare("SELECT * FROM servers WHERE is_public = ? ORDER BY last_bump DESC LIMIT 10");
+    $stmt->bind_param('i', $ispub);
     $stmt->execute();
 
     // Get the result

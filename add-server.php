@@ -117,10 +117,12 @@ if (isset($_POST['addServerBtn'])) {
     if (!empty($flagged_words)) {
         $is_approved = 0;
         $flagged_words_str = implode(', ', $flagged_words);
+        $apvd = 0;
+        $is_public = 0;
 
         // Insert flagged words into server_flags table
-        $flag_stmt = $conn->prepare("INSERT INTO server_flags (server_id, flagged_words) VALUES (?, ?)");
-        $flag_stmt->bind_param('ss', $server_id, $flagged_words_str);
+        $flag_stmt = $conn->prepare("INSERT INTO server_flags (server_id, server_name, reason, approved) VALUES (?, ?, ?, ?)");
+        $flag_stmt->bind_param('ssss', $server_id, $name, $flagged_words_str, $apvd);
         $flag_stmt->execute();
     }
 
