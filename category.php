@@ -37,8 +37,30 @@ if (!isset($_GET['category'])) {
                 <div class="ds-servers">
                     <?php
                     $category = $_GET['category'];
-                    $stmt = $conn->prepare("SELECT * FROM servers WHERE category_slug =?");
-                    $stmt->bind_param('s', $category);
+                    $is_public = 1;
+                    $items_per_page = 10;
+
+                    // Get the current page from the URL, defaulting to 1 if not set
+                    $current_page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+                    if ($current_page < 1) {
+                        $current_page = 1;
+                    }
+
+                    // Calculate the offset for the query
+                    $offset = ($current_page - 1) * $items_per_page;
+
+                    // Fetch the total number of items
+                    $total_stmt = $conn->prepare("SELECT COUNT(*) AS total FROM servers WHERE category_slug = ? AND is_public = ?");
+                    $total_stmt->bind_param('si', $category, $is_public);
+                    $total_stmt->execute();
+                    $total_result = $total_stmt->get_result();
+                    $total_row = $total_result->fetch_assoc();
+                    $total_items = $total_row['total'];
+                    $total_pages = ceil($total_items / $items_per_page);
+
+                    // Fetch the items for the current page
+                    $stmt = $conn->prepare("SELECT * FROM servers WHERE category_slug = ? AND is_public = ? ORDER BY last_bump DESC LIMIT ? OFFSET ?");
+                    $stmt->bind_param('siii', $category, $is_public, $items_per_page, $offset);
                     $stmt->execute();
 
                     $result = $stmt->get_result();
@@ -62,7 +84,7 @@ if (!isset($_GET['category'])) {
                                 </div>
                                 <div class="mb-3">
                                     <?php foreach ($tags as $tag) { ?>
-                                        <span class="form-tag">#<?php echo $tag; ?></span>
+                                        <span class="form-tag">#<?php echo htmlspecialchars($tag); ?></span>
                                     <?php } ?>
                                 </div>
                                 <div class="description">
@@ -71,6 +93,33 @@ if (!isset($_GET['category'])) {
                             </a>
                         </div>
                     <?php } ?>
+
+                    <!-- Pagination -->
+                    <div class="ds-pagination mt-4">
+                        <?php if ($current_page > 1) { ?>
+                            <a
+                                href="<?php echo $base_url; ?>/category/<?php echo htmlspecialchars($category); ?>&page=<?php echo $current_page - 1; ?>">Previous</a>
+                        <?php } else { ?>
+                            <a class="disabled">Previous</a>
+                        <?php } ?>
+
+                        <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+                            <?php if ($i == $current_page) { ?>
+                                <a class="active"
+                                    href="<?php echo $base_url; ?>/category/<?php echo htmlspecialchars($category); ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            <?php } else { ?>
+                                <a
+                                    href="<?php echo $base_url; ?>/category/<?php echo htmlspecialchars($category); ?>&page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            <?php } ?>
+                        <?php } ?>
+
+                        <?php if ($current_page < $total_pages) { ?>
+                            <a
+                                href="<?php echo $base_url; ?>/category/<?php echo htmlspecialchars($category); ?>&page=<?php echo $current_page + 1; ?>">Next</a>
+                        <?php } else { ?>
+                            <a class="disabled">Next</a>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">

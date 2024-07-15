@@ -768,3 +768,26 @@ a {
   background-color: transparent;
   color: white;
 }
+
+.ds-pagination {
+  display: inline-block;
+}
+
+.ds-pagination a {
+  color: white;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  background-color: #641cac;
+}
+
+.ds-pagination a.active {
+  background-color: #7e24d8;
+  color: white;
+}
+
+.ds-pagination a.disabled {
+  background-color: #591999;
+  color: white;
+  cursor: not-allowed;
+}
