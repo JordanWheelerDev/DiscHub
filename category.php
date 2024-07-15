@@ -6,7 +6,18 @@ $pagename = "category";
 if (!isset($_GET['category'])) {
     header('Location: index');
     exit;
+} else {
+    $cat = $_GET['category'];
+    $gc = $conn->prepare("SELECT * FROM categories WHERE slug = ?");
+    $gc->bind_param('s', $cat);
+    $gc->execute();
+    $gresult = $gc->get_result();
+    $grow = $gresult->fetch_assoc();
+
+    $gc->close();
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -15,9 +26,10 @@ if (!isset($_GET['category'])) {
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="<?php echo $base_url; ?>/images/logo-w.png">
-    <meta name="description" content="Discover and manage your Discord servers.">
+    <meta name="description"
+        content="Find or list discord servers in the <?php echo strtolower($grow['category']); ?> category.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DiscHub | Browse Servers</title>
+    <title>DiscHub | Discord Servers Categorized by <?php echo $grow['category']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
