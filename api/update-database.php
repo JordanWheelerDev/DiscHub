@@ -28,7 +28,6 @@ if (isset($_POST['api_key']) && $_POST['api_key'] === $api_key) {
                 echo "Error updating database: " . $stmt->error;
             }
 
-            $stmt->close();
             if ($stmt->execute()) {
                 echo "Database updated successfully";
             } else {
