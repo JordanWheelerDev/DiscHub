@@ -89,7 +89,9 @@ function get_prohibited_words($text, $prohibited_words)
 {
     $found_words = [];
     foreach ($prohibited_words as $word) {
-        if (stripos($text, $word) !== false) {
+        // Use word boundaries in the regular expression to match whole words
+        $pattern = '/\b' . preg_quote($word, '/') . '\b/i';
+        if (preg_match($pattern, $text)) {
             $found_words[] = $word;
         }
     }
