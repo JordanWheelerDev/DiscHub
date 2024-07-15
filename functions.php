@@ -16,6 +16,10 @@ $base_url = $settings['base_url'];
 $discord_bot_uri = $settings['discord_bot_uri'];
 $discord_login_uri = $settings['discord_login_uri'];
 $api_key = $settings['api_key'];
+$live_stripe_sk = $settings['live_stripe_sk'];
+$live_stripe_pk = $settings['live_stripe_pk'];
+$test_stripe_sk = $settings['test_stripe_sk'];
+$test_stripe_pk = $settings['test_stripe_pk'];
 
 $stmt->close();
 

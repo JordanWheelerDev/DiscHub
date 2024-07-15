@@ -84,8 +84,8 @@ $pagename = "purchase";
                             <select id="amount-select" class="ds-select mb-3">
                                 <option value="500">1 Week/$5.00 USD</option>
                                 <option value="1000">2 Weeks/$10.00 USD</option>
-                                <option value="1500">3 Weeks/$20.00 USD</option>
-                                <option value="2000">4 Weeks/$30.00 USD</option>
+                                <option value="1500">3 Weeks/$15.00 USD</option>
+                                <option value="2000">4 Weeks/$20.00 USD</option>
                             </select>
                         </div>
 
@@ -119,7 +119,7 @@ $pagename = "purchase";
         }
 
         // Set your publishable API key here
-        var stripe = Stripe('pk_test_51PaQvWJ2yiAWQzDVKnADdw7EX27sZclYwycXWX0fOPpPmYK8d7EUsGWjWCOraNvV2n6VXdQpOX13gC3IMEOvpolJ00dHAsGLpM');
+        var stripe = Stripe('<?php echo $live_stripe_pk; ?>');
         var elements = stripe.elements();
 
         var appearance = {
