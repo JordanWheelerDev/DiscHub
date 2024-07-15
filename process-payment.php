@@ -3,7 +3,7 @@
 include 'functions.php';
 include 'stripe/init.php';
 
-\Stripe\Stripe::setApiKey($test_stripe_sk);
+\Stripe\Stripe::setApiKey($live_stripe_sk);
 
 $amount = $_POST['amount'];
 $token = $_POST['stripeToken'];
