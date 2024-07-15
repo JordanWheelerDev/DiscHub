@@ -15,6 +15,7 @@ $settings = $result->fetch_assoc();
 $base_url = $settings['base_url'];
 $discord_bot_uri = $settings['discord_bot_uri'];
 $discord_login_uri = $settings['discord_login_uri'];
+$api_key = $settings['api_key'];
 
 $stmt->close();
 
