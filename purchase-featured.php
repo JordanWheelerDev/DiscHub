@@ -119,7 +119,7 @@ $pagename = "purchase";
         }
 
         // Set your publishable API key here
-        var stripe = Stripe('<?php echo $live_stripe_pk; ?>');
+        var stripe = Stripe('<?php echo $test_stripe_pk; ?>');
         var elements = stripe.elements();
 
         var appearance = {
